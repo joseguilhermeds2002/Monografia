@@ -1,0 +1,10 @@
+* Elaborar uma proposta teórica para inserção da Teoria dos Grafos no Ensino Médio da rede pública
+* Investigar lacunas e possibilidades no currículo escolar relacionadas ao ensino de Matemática Discreta
+* Realizar levantamento bibliográfico sobre ensino de Matemática, Teoria dos Grafos e metodologias interdisciplinares
+* Analisar documentos curriculares (como BNCC e currículos estaduais/municipais) para identificar competências relacionadas aos grafos
+* Desenvolver uma proposta didática acessível e progressiva para alunos do Ensino Médio
+* Sugerir atividades interdisciplinares e contextualizadas com o cotidiano dos estudantes
+* Explorar o uso de recursos digitais e softwares educativos no ensino de grafos
+* Discutir os potenciais benefícios da proposta (raciocínio lógico, resolução de problemas, interdisciplinaridade)
+* Analisar possíveis dificuldades e limitações para implementação (formação docente, carga curricular, recursos)
+* Contribuir para o debate sobre a viabilidade da inserção da Teoria dos Grafos no Ensino Médio
