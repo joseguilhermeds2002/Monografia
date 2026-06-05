@@ -1,0 +1,88 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.7 }
+
+\bibitem[Boaventura e Jurkiewicz 2009]{boaventura2009}
+\abntrefinfo{Boaventura e Jurkiewicz}{BOAVENTURA; JURKIEWICZ}{2009}
+{BOAVENTURA, O.; JURKIEWICZ, S. \emph{Grafos}. [S.l.]: Editora Blucher, 2009.}
+
+\bibitem[Bondy e Murty 1976]{bondy1976}
+\abntrefinfo{Bondy e Murty}{BONDY; MURTY}{1976}
+{BONDY, J.~A.; MURTY, U. S.~R. \emph{Graph Theory with Applications}. New York:
+  North-Holland, 1976.}
+
+\bibitem[Brasil 1996]{brasil1996}
+\abntrefinfo{Brasil}{BRASIL}{1996}
+{BRASIL. \emph{Lei n\textordmasculine{} 9.394, de 20 de dezembro de 1996:
+  Estabelece as diretrizes e bases da educação nacional}. Brasília: [s.n.],
+  1996.
+Diário Oficial da União, Brasília, DF, 23 dez. 1996. Disponível em:
+  \url{http://www.planalto.gov.br/ccivil_03/leis/l9394.htm}. Acesso em: 10 jan.
+  2026.}
+
+\bibitem[Brasil 2002]{brasil2002}
+\abntrefinfo{Brasil}{BRASIL}{2002}
+{BRASIL. \emph{{PCN+} Ensino Médio: Orientações Educacionais Complementares
+  aos Parâmetros Curriculares Nacionais -- Ciências da Natureza, Matemática
+  e suas Tecnologias}.
+Brasília, 2002.}
+
+\bibitem[Brasil 2018]{brasil2018}
+\abntrefinfo{Brasil}{BRASIL}{2018}
+{BRASIL. \emph{Base Nacional Comum Curricular}.
+Brasília, 2018.}
+
+\bibitem[Cormen et al. 2009]{cormen2009}
+\abntrefinfo{Cormen et al.}{CORMEN et al.}{2009}
+{CORMEN, T.~H. et al. \emph{Introduction to Algorithms}. 3. ed. Cambridge,
+  Mass.: MIT Press, 2009.}
+
+\bibitem[Diestel 2017]{diestel2017}
+\abntrefinfo{Diestel}{DIESTEL}{2017}
+{DIESTEL, R. \emph{Graph Theory}. 5. ed. Berlin: Springer, 2017.}
+
+\bibitem[Euler 1741]{euler1736}
+\abntrefinfo{Euler}{EULER}{1741}
+{EULER, L. Solutio problematis ad geometriam situs pertinentis.
+\emph{Commentarii Academiae Scientiarum Imperialis Petropolitanae}, v.~8, p.
+  128--140, 1741.
+Apresentado em 1736.}
+
+\bibitem[Jurkiewicz 2007]{jurkiewicz2007}
+\abntrefinfo{Jurkiewicz}{JURKIEWICZ}{2007}
+{JURKIEWICZ, S. \emph{Grafos: Uma introdução}. 2007.
+Programa de Iniciação Científica da OBMEP 2007.}
+
+\bibitem[Malta 2008]{malta2008}
+\abntrefinfo{Malta}{MALTA}{2008}
+{MALTA, G. H.~S.
+\emph{Grafos no ensino médio: uma inserção possível}.
+Disserta\c{c}\~{a}o (Mestrado) --- Universidade Federal do Rio Grande do Sul,
+  Porto Alegre, 2008.}
+
+\bibitem[Rodrigues e Silva 2021]{rodrigues2021}
+\abntrefinfo{Rodrigues e Silva}{RODRIGUES; SILVA}{2021}
+{RODRIGUES, A.~B.; SILVA, C.~D. O ensino de grafos e a cultura digital: novas
+  perspectivas para a matemática escolar.
+\emph{Revista de Educação Matemática}, v.~10, n.~2, p. 1--15, 2021.}
+
+\bibitem[Rosen 2012]{rosen2012}
+\abntrefinfo{Rosen}{ROSEN}{2012}
+{ROSEN, K.~H. \emph{Discrete Mathematics and Its Applications}. 7. ed. New
+  York: McGraw-Hill, 2012.}
+
+\bibitem[Silva 2020]{silva2020}
+\abntrefinfo{Silva}{SILVA}{2020}
+{SILVA, L.~F. D. \emph{Uma Proposta de Sequência Didática para o Ensino
+  Médio: Introdução ao Estudo da Teoria dos Grafos com GeoGebra}. 2020.
+6 mai. 2020.}
+
+\bibitem[Wilson 1996]{wilson1996}
+\abntrefinfo{Wilson}{WILSON}{1996}
+{WILSON, R.~J. \emph{Introduction to Graph Theory}. 4. ed. London: Longman,
+  1996.}
+
+\end{thebibliography}

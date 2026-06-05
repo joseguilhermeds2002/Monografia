@@ -1,0 +1,304 @@
+\documentclass[10pt, aspectratio=169]{beamer}
+
+% --- Pacotes Básicos ---
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\usepackage{tikz} % Pacote para desenhar grafos vetoriais nativos
+\usepackage{helvet} % Fonte estilo Arial para leitura mais leve em slides
+\renewcommand{\familydefault}{\sfdefault}
+
+% --- Tema, Cores e Aparência ---
+\usetheme{Madrid}
+\setbeamertemplate{itemize items}[circle] 
+\setbeamertemplate{navigation symbols}{} 
+
+% Definindo a cor Verde UESC
+\definecolor{uescgreen}{RGB}{0, 102, 51}
+\definecolor{uesclight}{RGB}{240, 248, 240}
+
+% Aplicando a nova cor ao tema
+\setbeamercolor{title}{fg=white, bg=uescgreen}
+\setbeamercolor{frametitle}{fg=white, bg=uescgreen}
+\setbeamercolor{structure}{fg=uescgreen}
+\setbeamercolor{block title}{bg=uescgreen!90, fg=white}
+\setbeamercolor{block body}{bg=uesclight, fg=black}
+
+\begin{document}
+
+% Slide 1: Capa (Personalizada para ajuste perfeito)
+\begin{frame}[plain]
+  \vspace{-0.2cm}
+  \begin{center}
+    % Brasão e Slogan
+    \includegraphics[width=1.6cm]{Brasão-UESC---png1} \\
+    \vspace{0.05cm}
+    {\fontsize{7}{8}\selectfont \textbf{\textit{IN ALTUM}}} \\
+    
+    \vspace{0.2cm}
+    % Instituição
+    {\footnotesize
+    UNIVERSIDADE ESTADUAL DE SANTA CRUZ \\
+    CURSO: Licenciatura em Matemática \\
+    DISCIPLINA: Trabalho de Conclusão de Curso (TCC)}
+  \end{center}
+
+  \vspace{0.1cm}
+
+  % Título
+  \begin{tcolorbox}[colback=uescgreen, colframe=uescgreen, arc=2mm, halign=center, width=\textwidth]
+    \textcolor{white}{\large \textbf{PROPOSTA DE INSERÇÃO DO ENSINO DE GRAFOS}} \\
+    \vspace{0.1cm}
+    \textcolor{white}{\normalsize PARA ALUNOS DO ENSINO MÉDIO DA REDE PÚBLICA}
+  \end{tcolorbox}
+
+  \vspace{0.1cm}
+
+  % Autoria e Orientação
+  \begin{center}
+    \scriptsize
+    \textbf{Autor:} José Guilherme Dantas Silva \\ 
+    \texttt{E-mail: jgdsilva.lma@uesc.br} \\
+    \vspace{0.15cm}
+    \textbf{Orientador:} Prof. Dr. Romenique da Rocha Silva \\ 
+    \texttt{E-mail: rrsilva.lma@uesc.br} \\
+    \vspace{0.15cm}
+    \textbf{Coorientadora:} Profª. Ma. Sara Meira Moutta \\ 
+    \texttt{E-mail: smmouta@uesc.br} \\
+    \vspace{0.3cm}
+    {\footnotesize 2026}
+  \end{center}
+\end{frame}
+
+% Slide 2: Introdução e Problematização
+\begin{frame}{INTRODUÇÃO}
+  \vspace{0.2cm}
+  \begin{itemize}
+    \item \textbf{Um mundo conectado:} A Teoria dos Grafos deixou de ser apenas uma abstração matemática e hoje é a base da nossa vida digital, orientando rotas de GPS, estruturando redes sociais e otimizando sistemas complexos.
+    \vspace{0.3cm}
+    \item \textbf{A realidade da sala de aula:} Apesar de sua aplicabilidade, o Ensino Médio público foca em currículos tradicionais, distanciando o aluno da tecnologia que ele próprio consome diariamente.
+  \end{itemize}
+  
+  \vfill
+  
+  \begin{tcolorbox}[colback=uescgreen!5!white, colframe=uescgreen, arc=2mm, title=\textbf{Problematização}]
+    Como podemos modernizar o currículo de Matemática, alinhando-o às exigências da Base Nacional Comum Curricular (BNCC) no que diz respeito à interdisciplinaridade e ao pensamento computacional?
+  \end{tcolorbox}
+\end{frame}
+
+% Slide 3: Pergunta de Pesquisa
+\begin{frame}{PERGUNTA DE PESQUISA}
+  \vfill
+  \begin{center}
+    \begin{tcolorbox}[colback=uescgreen!5!white, colframe=uescgreen, width=0.95\textwidth, arc=4mm, boxsep=5mm]
+      \centering
+      \Large \itshape
+      De que maneira é possível propor a inserção teórica da Teoria dos Grafos no Ensino Médio da rede pública, de forma contextualizada, interdisciplinar e em consonância com as diretrizes da BNCC?
+    \end{tcolorbox}
+  \end{center}
+  \vfill
+\end{frame}
+
+% Slide 4: Objetivos
+\begin{frame}{OBJETIVOS}
+  \begin{block}{Objetivo Geral}
+    Construir uma abordagem teórica e pedagógica que viabilize a inserção do ensino de Grafos nas aulas de Matemática do Ensino Médio da rede pública.
+  \end{block}
+  
+  \vspace{0.4cm}
+  
+  \begin{block}{Objetivos Específicos}
+    \begin{enumerate}
+      \item \textbf{Investigar} o respaldo normativo da BNCC para o ensino de Matemática Discreta.
+      \item \textbf{Traduzir} modelagens do cotidiano em propostas didáticas práticas.
+      \item \textbf{Analisar} os desafios estruturais e os limites de implementação desse conteúdo na realidade escolar.
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+% Slide 5: Justificativa/Relevância
+\begin{frame}{JUSTIFICATIVA/RELEVÂNCIA}
+  \vspace{0.2cm}
+  \begin{description}
+    \item[Desenvolvimento Cognitivo]\hfill\\ 
+    O trabalho com vértices e arestas desenvolve um raciocínio relacional, permitindo ao aluno enxergar conexões estruturais e não apenas resolver equações isoladas.
+    \vspace{0.3cm}
+    
+    \item[Apoio Direto da BNCC]\hfill\\ 
+    Contempla diretamente a habilidade \textbf{EM13MAT315}, que exige a aplicação da matemática para compreender o mundo digital e exercitar o pensamento computacional.
+    \vspace{0.3cm}
+    
+    \item[Pontes Interdisciplinares]\hfill\\
+    Possibilita modelagens naturais com a \textbf{Biologia} (redes alimentares e genéticas), com a \textbf{Geografia} (mapas rodoviários e logística) e com a \textbf{Informática} (lógica de programação e algoritmos).
+  \end{description}
+\end{frame}
+
+% Slide 6: Revisão de Literatura | Aporte Pedagógico
+\begin{frame}{REVISÃO DE LITERATURA}
+  \framesubtitle{Aporte Pedagógico}
+  \begin{itemize}
+      \item \textbf{O Ponto de Partida Histórico:} A clássica formulação das Sete Pontes de Königsberg (Euler, 1736) atua como elemento engajador para despertar a curiosidade investigativa dos alunos (MALTA, 2008).
+      \vspace{0.4cm}
+      
+      \item \textbf{A Cultura Digital:} A Teoria dos Grafos atua como uma ponte conceitual, traduzindo a Matemática escolar para a linguagem das tecnologias contemporâneas (RODRIGUES; SILVA, 2021).
+      \vspace{0.4cm}
+      
+      \item \textbf{Metodologia Base:} Todo o referencial apoia-se na \textbf{Resolução de Problemas} (recomendada pela LDB e PCN+). A teoria deixa de ser uma imposição mecânica e passa a ser uma descoberta feita pelo próprio estudante.
+  \end{itemize}
+\end{frame}
+
+% Slide 7: Revisão de Literatura | Conceitos Iniciais e Ilustração
+\begin{frame}{REVISÃO DE LITERATURA}
+  \framesubtitle{Fundamentação Matemática: Conceitos Iniciais}
+  
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{block}{Definições Básicas}
+        \small
+        \begin{itemize}
+            \item \textbf{Grafo $\mathcal{G} = (\mathcal{V}, \mathcal{A})$:} Estrutura matemática definida por um conjunto não vazio de \textbf{vértices} ($\mathcal{V}$) e um conjunto de \textbf{arestas} ($\mathcal{A}$), que estabelecem as relações de adjacência entre os pares de vértices.
+            \vspace{0.3cm}
+            \item \textbf{Grau de um Vértice $\delta(v)$:} Definido rigorosamente como o número de arestas incidentes no vértice $v$.
+        \end{itemize}
+      \end{block}
+      \vspace{0.2cm}
+      \small \textbf{Exemplo adjacente:} Observa-se que o vértice $A$ possui três arestas incidentes, portanto, seu grau é 3 ($\delta(A)=3$).
+    \end{column}
+    
+    \begin{column}{0.45\textwidth}
+      \begin{center}
+        \begin{tikzpicture}[scale=1.5, auto, swap, >=stealth]
+          % Estilo dos nós
+          \tikzstyle{vertice}=[circle, draw=uescgreen, fill=uescgreen!15, thick, minimum size=0.6cm, inner sep=0pt]
+          
+          % Vértices dispostos de forma simétrica (quadrado)
+          \node[vertice] (A) at (0, 2) {\textbf{A}};
+          \node[vertice] (B) at (2, 2) {\textbf{B}};
+          \node[vertice] (C) at (2, 0) {\textbf{C}};
+          \node[vertice] (D) at (0, 0) {\textbf{D}};
+          
+          % Arestas
+          \draw[thick, uescgreen] (A) -- (B);
+          \draw[thick, uescgreen] (B) -- (C);
+          \draw[thick, uescgreen] (C) -- (D);
+          \draw[thick, uescgreen] (D) -- (A);
+          \draw[thick, uescgreen] (A) -- (C);
+          
+          % Rótulos de grau posicionados estrategicamente para não sobrepor
+          \node[above left, font=\scriptsize, text=black] at (A) {$\delta(A)=3$};
+          \node[above right, font=\scriptsize, text=black] at (B) {$\delta(B)=2$};
+          \node[below right, font=\scriptsize, text=black] at (C) {$\delta(C)=3$};
+          \node[below left, font=\scriptsize, text=black] at (D) {$\delta(D)=2$};
+        \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 8: Revisão de Literatura | Fundamentação Matemática (Proposta I)
+\begin{frame}{REVISÃO DE LITERATURA}
+  \framesubtitle{Fundamentação Matemática: Proposta I ("A Vila dos Grafos")}
+  \begin{tcolorbox}[colback=white, colframe=uescgreen, title=Lema 3.1: Lema do Aperto de Mão]
+    Em qualquer grafo $\mathcal{G}=(\mathcal{V},\mathcal{A})$, a soma dos graus de todos os vértices é igual ao dobro do número de arestas:
+    $$\sum_{v\in\mathcal{V}}\delta(v)=2|\mathcal{A}|$$
+  \end{tcolorbox}
+  
+  \vspace{0.1cm}
+  
+  \begin{block}{Demonstração}
+    \begin{enumerate}
+        \item Considere a construção de um grafo. Cada aresta $\{u,v\}$ conecta exatamente dois vértices distintos.
+        \item Ao traçarmos uma aresta, ela contribui com exatamente uma unidade ($+1$) para o grau do vértice $u$ e outra unidade ($+1$) para o vértice $v$.
+        \item Portanto, ao percorrermos todas as arestas para calcular a soma total dos graus, \textbf{cada aresta será contabilizada exatamente duas vezes}.
+        \item Logo, a soma dos graus é obrigatoriamente o dobro da quantidade total de arestas. \qedsymbol
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+% Slide 9: Revisão de Literatura | Fundamentação Matemática (Proposta II)
+\begin{frame}{REVISÃO DE LITERATURA}
+  \framesubtitle{Fundamentação Matemática: Proposta II ("Redes Sociais")}
+  \begin{tcolorbox}[colback=white, colframe=uescgreen, title=Dígrafos e Conservação de Grau]
+    Em um Grafo Dirigido (Dígrafo), as arestas possuem orientação (arcos). A soma dos graus de entrada ($\delta_{in}$) é igual à soma dos graus de saída ($\delta_{out}$), sendo ambas iguais ao total de arcos $|\mathcal{A}|$.
+  \end{tcolorbox}
+  
+  \vspace{0.1cm}
+  
+  \begin{block}{Demonstração Lógica}
+    \begin{enumerate}
+        \item Em redes assimétricas (como seguidores no Instagram), um arco direcionado parte de um vértice de origem e aponta para um vértice de destino.
+        \item A existência de um único arco gera simultaneamente \textbf{exatamente um} grau de saída na origem e \textbf{exatamente um} grau de entrada no destino.
+        \item Sendo assim, cada arco do conjunto $|\mathcal{A}|$ contribui com $1$ para o somatório total de saídas e com $1$ para o somatório total de entradas.
+        \item Conclui-se que $\sum \delta_{in} = \sum \delta_{out} = |\mathcal{A}|$. \qedsymbol
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+% Slide 10: Revisão de Literatura | Fundamentação Matemática (Proposta III)
+\begin{frame}{REVISÃO DE LITERATURA}
+  \framesubtitle{Fundamentação Matemática: Proposta III ("Caixeiro Viajante")}
+  \begin{tcolorbox}[colback=white, colframe=uescgreen, title=Teorema 3.1: Arestas no Grafo Completo]
+    O grafo completo $K_n$ possui exatamente $\frac{n(n-1)}{2}$ arestas. Cada vértice possui grau $n-1$.
+  \end{tcolorbox}
+  
+  \vspace{0.1cm}
+  
+  \begin{block}{Demonstração}
+    \begin{enumerate}
+        \item No grafo completo $K_n$, todos os vértices estão conectados entre si. Logo, cada um dos $n$ vértices liga-se aos outros $n-1$ vértices disponíveis.
+        \item O grau de qualquer vértice é, portanto, $n-1$.
+        \item A soma dos graus de todos os $n$ vértices será $n \times (n-1)$.
+        \item Aplicando o Lema do Aperto de Mão, sabemos que a soma dos graus é igual a $2|\mathcal{A}|$.
+        \item Igualando os termos: $2|\mathcal{A}| = n(n-1) \implies |\mathcal{A}| = \frac{n(n-1)}{2}$. \qedsymbol
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+% Slide 11: Metodologia da Pesquisa
+\begin{frame}{METODOLOGIA DA PESQUISA}
+  \textbf{Design do Estudo:} Pesquisa qualitativa, exploratória e bibliográfica, cujo produto final é a estruturação de um referencial pedagógico viável.
+  
+  \vspace{0.4cm}
+  
+  \begin{block}{Os Três Pilares: Propostas Didáticas Progressivas}
+    \begin{enumerate}
+      \item \textbf{A Vila dos Grafos (Proposta I):} Atividade de mapeamento viário para construção de vértices/arestas e constatação dedutiva do Lema do Aperto de Mão.
+      \item \textbf{Redes Sociais (Proposta II):} Aplicação de Dígrafos para diferenciar amizades simétricas (Facebook) de conexões assimétricas (Instagram).
+      \item \textbf{Caixeiro Viajante (Proposta III):} Cálculo de rotas logísticas mais curtas com arestas ponderadas e reflexão sobre a complexidade computacional.
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+% Slide 12: Referências
+\begin{frame}{REFERÊNCIAS}
+  \vspace{0.2cm}
+  \begin{thebibliography}{99}
+    \small
+    \bibitem{bncc} BRASIL. \emph{Base Nacional Comum Curricular (BNCC)}. Educação é a Base. Brasília: MEC, 2018.
+    
+    \bibitem{diestel} DIESTEL, R. \emph{Graph Theory}. 5. ed. Berlin: Springer, 2017.
+    
+    \bibitem{euler} EULER, L. \emph{Solutio problematis ad geometriam situs pertinentis}. Commentarii Academiae Scientiarum Imperialis Petropolitanae, 1741.
+    
+    \bibitem{malta} MALTA, G. H. S. \emph{Grafos no ensino médio: uma inserção possível}. Dissertação (Mestrado) - UFRGS, 2008.
+    
+    \bibitem{rodrigues} RODRIGUES, A. B.; SILVA, C. D. O ensino de grafos e a cultura digital. \emph{Revista de Educação Matemática}, v. 10, 2021.
+  \end{thebibliography}
+\end{frame}
+
+% Slide 13: Agradecimento
+\begin{frame}[plain]
+  \vfill
+  \begin{center}
+    \Huge \textbf{\textcolor{uescgreen}{OBRIGADO!}}
+    
+    \vspace{0.8cm}
+    \large \textbf{José Guilherme Dantas Silva} \\
+    \normalsize \texttt{jgdsilva.lma@uesc.br}
+  \end{center}
+  \vfill
+\end{frame}
+
+\end{document}
