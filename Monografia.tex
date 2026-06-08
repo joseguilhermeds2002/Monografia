@@ -1,6 +1,3 @@
-% ---
-% Classe para documento digital (não impresso) - formato oneside
-% ---
 \documentclass[
   12pt,
   oneside,
@@ -21,15 +18,18 @@
 \usepackage{graphicx}
 \usepackage{microtype}
 \usepackage{lipsum}
-
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage{float} % PACOTE ADICIONADO PARA FIXAR A IMAGEM
 \setlength{\marginparwidth}{2cm}
-\usepackage[portuguese]{todonotes}
+\usepackage{todonotes}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta, positioning}   % bibliotecas extras para grafos dirigidos
+\usetikzlibrary{arrows.meta, positioning}
 \usepackage{amsmath, amssymb}
+\usepackage{enumitem}
 
 % ---
-% Pacotes de citações
+% Pacotes de citações (Padrão Alfabético [alf] para corrigir os números no texto)
 % ---
 \usepackage[alf]{abntex2cite}
 
@@ -47,12 +47,23 @@
 \renewcommand{\thechapter}{\arabic{chapter}}
 \renewcommand{\thesection}{\thechapter.\arabic{section}}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 \renewcommand{\thefigure}{\arabic{figure}}
 \renewcommand{\thetable}{\arabic{table}}
 
 \captionstyle{\sffamily\bfseries}
 \captionnamefont{\sffamily\bfseries}
 \captiontitlefont{\sffamily}
+
+% ---
+% Ambientes de teorema
+% ---
+\theoremstyle{definition}
+\newtheorem{definicao}{Definição}[chapter]
+\newtheorem{teorema}[definicao]{Teorema}
+\newtheorem{lema}[definicao]{Lema}
+\newtheorem{exemplo}[definicao]{Exemplo}
+\newtheorem{propriedade}[definicao]{Propriedade}
 
 % ---
 % Proteção para Metadados do PDF
@@ -69,13 +80,6 @@
 % Arquivo de Bibliografia Embutido
 % ---
 \begin{filecontents*}{referencias.bib}
-
-@misc{fabricio2019,
-  author = {Siqueira, Fabrício and others},
-  title  = {Portal OBMEP: Material Teórico -- Tópicos Adicionais --
-            Introdução à Teoria Dos Grafos -- Parte 1},
-  year   = {2019}
-}
 
 @book{boaventura2009,
   author    = {Boaventura, Oswaldo and Jurkiewicz, Samuel},
@@ -101,17 +105,6 @@
   year      = {2009}
 }
 
-@mastersthesis{custodio2025,
-  author  = {Custodio, Diego Scanavachi},
-  title   = {Um estudo sobre grafos e sua aplicabilidade no ensino médio},
-  school  = {Universidade de São Paulo},
-  address = {São Carlos},
-  year    = {2025},
-  note    = {Disponível em:
-             \url{https://www.teses.usp.br/teses/disponiveis/55/55136/tde-24072025-110655/}.
-             Acesso em: 4 nov. 2025}
-}
-
 @manual{brasil2002,
   organization = {Brasil},
   title        = {{PCN+} Ensino Médio: Orientações Educacionais Complementares
@@ -122,24 +115,11 @@
   year         = {2002}
 }
 
-@misc{figueredo,
-  author = {Figueredo, J.},
-  title  = {Teoria dos Grafos: Representação de Grafos}
-}
-
 @misc{jurkiewicz2007,
   author = {Jurkiewicz, S.},
   title  = {Grafos: Uma introdução},
   year   = {2007},
   note   = {Programa de Iniciação Científica da OBMEP 2007}
-}
-
-@book{lopes2010,
-  author    = {Lopes, M. L. M. L.},
-  title     = {Grafos: jogos e desafios},
-  address   = {Rio de Janeiro},
-  publisher = {IM/UFRJ},
-  year      = {2010}
 }
 
 @mastersthesis{malta2008,
@@ -148,15 +128,6 @@
   school  = {Universidade Federal do Rio Grande do Sul},
   address = {Porto Alegre},
   year    = {2008}
-}
-
-@book{santos2007,
-  author    = {Santos, J. P. O. and Mello, M. P. and Murari, I. T. C.},
-  title     = {Introdução à Análise Combinatória},
-  edition   = {4},
-  address   = {Rio de Janeiro},
-  publisher = {Editora Ciência Moderna},
-  year      = {2007}
 }
 
 @article{rodrigues2021,
@@ -169,10 +140,6 @@
   pages   = {1--15},
   year    = {2021}
 }
-
-% ---------------------------------------------------------------
-% Referências adicionadas para sustentar as definições e exemplos
-% ---------------------------------------------------------------
 
 @book{diestel2017,
   author    = {Diestel, Reinhard},
@@ -226,8 +193,15 @@
   address  = {Brasília},
   year     = {1996},
   note     = {Diário Oficial da União, Brasília, DF, 23 dez. 1996.
-              Disponível em: \url{http://www.planalto.gov.br/ccivil_03/leis/l9394.htm}.
-              Acesso em: 10 jan. 2026}
+              Disponível em: \url{http://www.planalto.gov.br/ccivil_03/leis/l9394.htm}. Acesso em: 10 jan. 2026}
+}
+
+@manual{brasil2018,
+  organization = {Brasil},
+  title        = {Base Nacional Comum Curricular},
+  address      = {Brasília},
+  publisher    = {MEC},
+  year         = {2018}
 }
 
 \end{filecontents*}
@@ -235,7 +209,7 @@
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
-\titulo{PROPOSTA DE INSERÇÃO DO ENSINO DE GRAFOS: PARA ALUNOS DO ENSINO MÉDIO DA REDE PÚBLICA DE ENSINO}
+\titulo{PROPOSTA DE INSERÇÃO DO ENSINO DE GRAFOS PARA ALUNOS DO ENSINO MÉDIO DA REDE PÚBLICA}
 \autor{JOSÉ GUILHERME DANTAS SILVA}
 \local{Ilhéus-BA}
 \data{2026}
@@ -251,33 +225,24 @@
 \preambulo{Trabalho de Conclusão de Curso apresentado ao curso de Licenciatura em Matemática, Departamento de Ciências Exatas, da UNIVERSIDADE ESTADUAL DE SANTA CRUZ, como requisito parcial para a obtenção do grau de Licenciado em Matemática.}
 
 % ---
-% Redefinição da Capa
-% ---
-% ---
-% Capa padrão ABNT NBR 14724:2011
-% Estrutura: Instituição (topo) → Autor (fixo, próximo ao topo) →
-%            Título (centro) → Local / Ano (rodapé)
+% Redefinição da Capa com INSERÇÃO DA IMAGEM DO BRASÃO
 % ---
 \renewcommand{\imprimircapa}{%
   \begin{capa}%
     \centering
-    % ---- Cabeçalho: brasão + nome da instituição ----
-    \includegraphics[width=3cm]{Brasão-UESC---png1.png}\\[0.4cm]
+    \includegraphics[width=3.5cm]{Brasão-UESC---png1.png}\\[0.4cm] 
     {\ABNTEXchapterfont\large\imprimirinstituicao}
 
-    \vspace{2.5cm} % espaço fixo — autor fica no terço superior
+    \vspace{2.5cm}
 
-    % ---- Autor ----
     {\ABNTEXchapterfont\large\imprimirautor}
 
-    \vspace*{\fill} % espaço elástico empurra o título para o centro
+    \vspace*{\fill}
 
-    % ---- Título ----
     {\ABNTEXchapterfont\bfseries\LARGE\imprimirtitulo}
 
-    \vspace*{\fill} % espaço elástico empurra local/ano para o rodapé
+    \vspace*{\fill}
 
-    % ---- Local e Ano ----
     {\large\imprimirlocal}\\[0.3cm]
     {\large\imprimirdata}\\[1cm]
   \end{capa}
@@ -334,7 +299,6 @@
   \end{center}
 
   Aprovado em: Ilhéus, \_\_ de \_\_\_\_\_\_\_\_\_\_\_\_ de \_\_\_\_.
-
   \begin{center}
     \vspace*{0.5cm}
     \textbf{BANCA EXAMINADORA} \\
@@ -368,7 +332,7 @@
 % ---
 % Agradecimentos
 % ---
-\begin{agradecimentos}
+\begin{agradecimentos} 
 Gostaria de começar agradecendo a Deus, que, com sua infinita bondade e
 misericórdia, me deu forças e me capacitou para chegar até aqui. Sei, inclusive,
 que Ele ainda me fará ir muito mais longe.
@@ -435,21 +399,24 @@ início da graduação.
 % Resumos
 % ---
 \begin{resumo}
- [Insira aqui o texto do seu resumo de 150 a 500 palavras]
+ Este trabalho apresenta uma proposta teórica e metodológica para a inserção da Teoria dos Grafos no currículo de Matemática do Ensino Médio das escolas públicas. Diante da necessidade de alinhar o ensino às demandas da sociedade contemporânea e às diretrizes da Base Nacional Comum Curricular (BNCC), a pesquisa investiga como os conceitos de grafos podem fomentar o pensamento computacional através de uma abordagem ``desplugada'', isto é, sem a dependência de laboratórios de informática. A metodologia adotada constitui-se de uma pesquisa qualitativa de cunho bibliográfico e documental. O estudo culmina na elaboração de três propostas didáticas estruturadas sob a perspectiva da Metodologia de Resolução de Problemas, englobando a modelagem de rotas urbanas, a análise de redes sociais e o Problema do Caixeiro Viajante. Discutem-se ainda os desafios da transposição didática no cenário da escola pública, destacando o papel fundamental de programas de iniciação à docência (como o PIBID) para a exequibilidade de metodologias ativas. Conclui-se que a Matemática Discreta atua como uma ferramenta poderosa para a modelagem de fenômenos reais, tornando o aprendizado mais significativo e conectado à cultura digital.
  \vspace{\onelineskip}
  \noindent
- \textbf{Palavras-chave}: Teoria dos Grafos. Ensino Médio. Matemática. BNCC.
+ \textbf{Palavras-chave}: Teoria dos Grafos. Ensino Médio. Matemática. BNCC. Pensamento Computacional.
 \end{resumo}
 
 \begin{resumo}[Abstract]
  \begin{otherlanguage*}{english}
-   [Insert the abstract text here]
+   This work presents a theoretical and methodological proposal for introducing Graph Theory into the high school Mathematics curriculum of public schools. Given the need to align teaching with the demands of contemporary society and the guidelines of the National Common Curricular Base (BNCC), the research investigates how graph concepts can foster computational thinking through an ``unplugged'' approach, that is, without relying on computer labs. The adopted methodology consists of qualitative bibliographic and documentary research. The study culminates in the development of three didactic proposals structured from the perspective of Problem-Solving Methodology, encompassing the modeling of urban routes, the analysis of social networks, and the Traveling Salesperson Problem. It also discusses the challenges of didactic transposition in the public school setting, highlighting the fundamental role of teaching initiation programs (such as PIBID) for the feasibility of active methodologies. It concludes that Discrete Mathematics acts as a powerful tool for modeling real phenomena, making learning more meaningful and connected to digital culture.
    \vspace{\onelineskip}
    \noindent
-   \textbf{Keywords}: Graph Theory. High School. Mathematics. BNCC.
+   \textbf{Keywords}: Graph Theory. High School. Mathematics. BNCC. Computational Thinking.
  \end{otherlanguage*}
 \end{resumo}
 
+% ---
+% Lista de Figuras
+% ---
 \pdfbookmark[0]{\listfigurename}{lof}
 \listoffigures*
 \cleardoublepage
@@ -457,6 +424,7 @@ início da graduação.
 \begin{siglas}
   \item[BNCC] Base Nacional Comum Curricular
   \item[LDB]  Lei de Diretrizes e Bases da Educação Nacional
+  \item[PIBID] Programa Institucional de Bolsa de Iniciação à Docência
   \item[UESC] Universidade Estadual de Santa Cruz
 \end{siglas}
 
@@ -504,18 +472,7 @@ tópicos de Teoria dos Grafos pode favorecer uma formação matemática mais rob
 e conectada ao universo digital, alinhando o currículo escolar às demandas da
 contemporaneidade. Sob essa ótica, defende-se que a transposição didática desse
 conteúdo para o Ensino Médio é uma possibilidade real e metodologicamente
-fundamentada. Longe de exigir um formalismo inacessível, o ensino de grafos pode
---- e deve --- ser conduzido por meio de abordagens investigativas, atividades de
-modelagem e o uso intensivo de representações visuais, tornando a aprendizagem
-significativa e engajadora para o estudante.
-
-Para ilustrar, ao representar um mapa urbano, os vértices podem corresponder às
-casas, enquanto as arestas representam as vias de mão dupla que as interligam. De
-maneira semelhante, em uma rede social, os vértices podem ser entendidos como
-pessoas e as arestas como relações de amizade. Em ambos os exemplos, observa-se
-que as relações estabelecidas são mútuas: no caso da rede social, a amizade
-implica reconhecimento recíproco; já no caso do mapa, a existência de uma via de
-mão dupla garante o tráfego entre as duas casas em ambas as direções.
+fundamentada.
 
 A Teoria dos Grafos, área da Matemática Discreta, dedica-se ao estudo dessas
 estruturas formadas por vértices e arestas, possibilitando a representação e a
@@ -530,8 +487,7 @@ atenção no Ensino Médio da rede pública, cujos currículos e livros didátic
 priorizam conteúdos considerados clássicos da Matemática, muitas vezes
 desvinculados das demandas tecnológicas e sociais contemporâneas. Essa lacuna
 dificulta que os estudantes compreendam o potencial da Matemática para analisar e
-propor soluções para problemas atuais, como a dinâmica das redes sociais, o
-transporte urbano e a segurança em redes computacionais.
+propor soluções para problemas atuais.
 
 No contexto do Novo Ensino Médio e da Base Nacional Comum Curricular (BNCC), que
 enfatizam a contextualização, a interdisciplinaridade e o desenvolvimento do
@@ -540,6 +496,16 @@ significativa. Nesse sentido, a questão central que orienta este trabalho consi
 em investigar de que maneira é possível propor a inserção teórica da Teoria dos
 Grafos no Ensino Médio da rede pública, de forma contextualizada, interdisciplinar
 e em consonância com as diretrizes da BNCC.
+
+Para dar conta dessa questão, o presente trabalho está organizado em capítulos
+que se articulam entre si. O Capítulo~\ref{cap:fundamentos} apresenta os
+fundamentos teóricos da Teoria dos Grafos e o estado da arte sobre seu ensino.
+O Capítulo~\ref{cap:bncc} realiza uma análise documental da BNCC, identificando
+as conexões entre a Teoria dos Grafos e as competências e habilidades previstas
+para o Ensino Médio. O Capítulo~\ref{cap:proposta}, por fim, apresenta a proposta
+didática propriamente dita, articulando os conceitos teóricos e as atividades
+sugeridas com as diretrizes curriculares e as estratégias pedagógicas
+recomendadas pela literatura.
 
 \section{Objetivo Geral}
 
@@ -581,155 +547,405 @@ sem prever aplicação prática em sala de aula, mas sim a construção de um
 referencial teórico e de sugestões didáticas fundamentadas em pesquisas já
 existentes.
 
-Inicialmente, será realizado um levantamento bibliográfico em livros, artigos
-científicos, dissertações e teses que tratem do ensino de Matemática na Educação
-Básica, da Matemática Discreta com ênfase na Teoria dos Grafos. Também serão
+Inicialmente, foi realizado um levantamento bibliográfico em livros, artigos
+científicos, dissertações e teses que tratam do ensino de Matemática na Educação
+Básica, da Matemática Discreta com ênfase na Teoria dos Grafos. Também foram
 analisados estudos sobre inovação curricular e metodologias interdisciplinares
-que utilizem grafos como recurso pedagógico.
-
-Além disso, será realizada uma análise documental da Base Nacional Comum
+que utilizam grafos como recurso pedagógico. Além disso, foi realizada uma análise documental da Base Nacional Comum
 Curricular (BNCC) e de currículos estaduais e municipais, a fim de identificar as
 competências e habilidades previstas para o Ensino Médio que se articulam com a
 Teoria dos Grafos.
 
-A partir desse referencial bibliográfico e da análise documental, será elaborada
-uma proposta teórica de ensino de grafos, organizada de forma acessível e
-progressiva para alunos do Ensino Médio, contemplando conceitos iniciais,
-exemplos contextualizados e sugestões de atividades interdisciplinares. Serão
-consideradas situações-problema ligadas ao cotidiano dos estudantes, como redes
-sociais, transporte urbano, conexões elétricas e caminhos mínimos em mapas, bem
-como a possibilidade de uso de recursos digitais e softwares educativos, como o
-GeoGebra.
+A partir desse referencial bibliográfico e da análise documental, o trabalho
+foi estruturado em três eixos complementares: (i) a apresentação dos
+fundamentos teóricos e do estado da arte sobre o ensino de grafos,
+reunidos no Capítulo~\ref{cap:fundamentos}; (ii) a análise documental da BNCC
+e suas implicações para o ensino de grafos, desenvolvida no
+Capítulo~\ref{cap:bncc}; e (iii) a proposta didática propriamente dita, que
+articula os dois eixos anteriores com estratégias pedagógicas e atividades
+contextualizadas, exposta no Capítulo~\ref{cap:proposta}. Essa organização visa
+garantir coerência interna entre o rigor matemático, a dimensão didática e o
+enquadramento normativo da proposta.
 
-Por fim, será realizada uma discussão crítica dos potenciais benefícios da proposta
+Por fim, foi realizada uma discussão crítica dos potenciais benefícios da proposta
 para o desenvolvimento do raciocínio lógico, da capacidade de resolução de
 problemas e da interdisciplinaridade, bem como das dificuldades e limitações que
 poderiam emergir em um cenário de eventual implementação, como a necessidade de
 formação docente específica, a sobrecarga curricular e a escassez de recursos nas
 escolas públicas.
 
-O trabalho, portanto, foca na apresentação de uma proposta de caráter teórico,
-fundamentada em revisão bibliográfica e análise documental, cuja finalidade é
-contribuir para o debate sobre a viabilidade da inserção da Teoria dos Grafos no
-Ensino Médio, sem a realização de práticas em contexto escolar.
+% ==========================================================
+\chapter{FUNDAMENTOS TEÓRICOS E ESTADO DA ARTE}
+\label{cap:fundamentos}
+% ==========================================================
 
-% ==========================================================
-\chapter{A TEORIA DOS GRAFOS E A BNCC}
-% ==========================================================
+Este capítulo apresenta os fundamentos matemáticos da Teoria dos Grafos e uma
+revisão da literatura sobre seu ensino na Educação Básica. A exposição segue uma
+progressão natural dos conceitos --- do mais elementar ao mais elaborado ---
+permitindo que o leitor compreenda a estrutura lógica da teoria antes de apreciá-
+la em sua dimensão didática e aplicada. A abordagem adota a tradição consolidada
+na literatura especializada \cite{diestel2017, wilson1996, boaventura2009}.
 
 % ----------------------------------------------------------
-\section{Breve Histórico}
+\section{Breve Histórico e o Problema de Königsberg}
 % ----------------------------------------------------------
 
 A Teoria dos Grafos é considerada um dos campos mais antigos da Matemática
 Discreta. Seu surgimento é atribuído ao matemático suíço Leonhard Euler, que em
-1736 publicou a solução do famoso \textbf{Problema das Sete Pontes de
+1736 publicou a solução do famoso \textit{Problema das Sete Pontes de
 Königsberg} \cite{euler1736}. O problema consistia em determinar se era possível
 percorrer todas as sete pontes da cidade de Königsberg (atual Kaliningrado,
 Rússia), que ligavam as margens do Rio Pregel a duas ilhas, passando por cada
-ponte exatamente uma vez e retornando ao ponto de partida. Euler demonstrou que
-tal percurso era impossível e, ao fazê-lo, formalizou os conceitos de vértice e
-aresta, lançando as bases da Teoria dos Grafos \cite{boaventura2009}.
+ponte exatamente uma vez e retornando ao ponto de partida.
 
-Essa história é, por si só, um ponto de partida pedagógico valioso: ela mostra
+Euler demonstrou que tal percurso era impossível e, ao fazê-lo, formalizou os conceitos de vértice e
+aresta, lançando as bases da Teoria dos Grafos \cite{boaventura2009}. Essa história é, por si só, um ponto de partida pedagógico valioso: ela mostra
 aos estudantes que a Matemática nasce da tentativa de resolver problemas
 concretos, reforçando a dimensão aplicada do conhecimento matemático
-\cite{malta2008}.
+\cite{malta2008}. O problema das pontes será retomado adiante quando
+discutirmos os conceitos de caminho e circuito euleriano (Seção~\ref{sec:euleriano}).
+
+\begin{figure}[H]
+    \centering
+    % Substitua o nome do arquivo abaixo pelo arquivo real da sua imagem
+    \includegraphics[width=0.6\textwidth]{Ponte--de--Konigsberg.png}
+    \caption{Representação do problema das sete pontes de Königsberg.}
+    \label{fig:ponte_konigsberg}
+\end{figure}
 
 % ----------------------------------------------------------
-\section{Definições Fundamentais}
+\section{Definições Matemáticas Fundamentais}
 % ----------------------------------------------------------
 
-Nesta seção, apresentam-se as definições básicas da Teoria dos Grafos que
-fundamentam a proposta didática deste trabalho. A abordagem segue a tradição
-consolidada na literatura especializada \cite{diestel2017, wilson1996,
-boaventura2009}.
-
+% ----------------------------------------------------------
 \subsection{Grafo}
+% ----------------------------------------------------------
 
-\begin{quote}
-  \textit{``Um grafo $G$ é um par ordenado $G = (V,\, A)$, em que $V$ é um
-  conjunto não vazio de elementos denominados \textbf{vértices} (ou nós) e $A$
-  é um conjunto de pares não ordenados de elementos de~$V$, denominados
-  \textbf{arestas}.''}
-  \begin{flushright}
-    \cite[p.~1]{boaventura2009}
-  \end{flushright}
-\end{quote}
+\begin{definicao}[Grafo]
+\label{def:grafo}
+  Um \textit{grafo} $\mathcal{G}$ é um par ordenado
+  $\mathcal{G} = (\mathcal{V},\, \mathcal{A})$, em que $\mathcal{V}$ é um
+  conjunto não vazio de elementos denominados \textit{vértices} (ou nós) e
+  $\mathcal{A}$ é um conjunto de pares não ordenados de elementos de
+  $\mathcal{V}$, denominados \textit{arestas} \cite{boaventura2009}.
+\end{definicao}
 
 De maneira intuitiva, pode-se imaginar um grafo como um diagrama composto por
 pontos (os vértices) conectados por linhas (as arestas). Quando dois vértices
-estão ligados por uma aresta, diz-se que eles são \textbf{adjacentes}
-\cite{rosen2012}.
+estão ligados por uma aresta, diz-se que eles são \textit{adjacentes}
+\cite{rosen2012}. A quantidade de vértices de $\mathcal{G}$ é chamada de
+\textit{ordem} do grafo, enquanto a quantidade de arestas é chamada de
+\textit{tamanho}.
 
-\subsection{Grau de um Vértice}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        vertex/.style={circle, draw=black!80, fill=blue!10, very thick, minimum size=8mm, font=\large},
+        edge/.style={draw, very thick, black!70}
+    ]
+        % Vértices
+        \node[vertex] (v1) at (0,2) {$v_1$};
+        \node[vertex] (v2) at (2.5,0) {$v_2$};
+        \node[vertex] (v3) at (0,-2) {$v_3$};
+        \node[vertex] (v4) at (-2.5,0) {$v_4$};
 
-O \textbf{grau} de um vértice $v$, denotado por $\delta(v)$, corresponde ao
-número de arestas que incidem sobre ele \cite{bondy1976}. Um vértice de grau
-zero é denominado \textbf{vértice isolado}. O \textbf{Lema do Aperto de Mão}
-(ou Teorema do Grau) estabelece que, em qualquer grafo, a soma dos graus de
-todos os vértices é igual ao dobro do número de arestas:
-\begin{equation}
-  \sum_{v \in V} \delta(v) = 2\,|A|.
-  \label{eq:lema_aperto}
-\end{equation}
+        % Arestas com rótulos opcionais para ilustrar
+        \draw[edge] (v1) -- (v2) node[midway, above right] {$e_1$};
+        \draw[edge] (v2) -- (v3) node[midway, below right] {$e_2$};
+        \draw[edge] (v3) -- (v4) node[midway, below left] {$e_3$};
+        \draw[edge] (v4) -- (v1) node[midway, above left] {$e_4$};
+        \draw[edge] (v1) -- (v3) node[midway, right] {$e_5$};
+    \end{tikzpicture}
+    \caption{Representação visual de um grafo ilustrando vértices ($v_i$) e arestas ($e_j$).}
+    \label{fig:representacao_grafo_def}
+\end{figure}
 
-Esse resultado decorre do fato de que cada aresta contribui com grau~1 para cada
-um de seus dois extremos, sendo, portanto, contada duas vezes na soma
-\cite{diestel2017}.
+% ----------------------------------------------------------
+\subsection{Grau de um Vértice e o Lema do Aperto de Mão}
+% ----------------------------------------------------------
 
-\subsection{Grafo Não Dirigido e Grafo Dirigido (Dígrafo)}
+\begin{definicao}[Grau de um vértice]
+\label{def:grau}
+  O \textit{grau} de um vértice $v$, denotado por $\delta(v)$, corresponde ao
+  número de arestas que incidem sobre ele \cite{bondy1976}. Um vértice de grau
+  zero é denominado \textit{vértice isolado}.
+\end{definicao}
 
-Um grafo é dito \textbf{não dirigido} quando suas arestas não possuem
-orientação, ou seja, a relação entre dois vértices é simétrica. Já um
-\textbf{grafo dirigido} (ou \textbf{dígrafo}) é aquele em que as arestas
-possuem uma orientação definida, representadas por \textbf{arcos}; nesse caso,
-o arco $(u, v)$ parte de $u$ e chega em~$v$, sendo diferente do arco $(v, u)$
-\cite{cormen2009}.
+\begin{lema}[Lema do Aperto de Mão]
+\label{lema:handshaking}
+  Em qualquer grafo $\mathcal{G} = (\mathcal{V},\, \mathcal{A})$, a soma dos
+  graus de todos os vértices é igual ao dobro do número de arestas:
+  \begin{equation}
+    \sum_{v \in \mathcal{V}} \delta(v) = 2\,|\mathcal{A}|.
+    \label{eq:lema_aperto}
+  \end{equation}
+\end{lema}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        vertex/.style={circle, draw=black!80, fill=blue!10, very thick, minimum size=8mm, font=\large},
+        edge/.style={draw, very thick, black!70}
+    ]
+        % Vértices com os rótulos de graus
+        \node[vertex, label=above:{$\delta=2$}] (v1) at (0,2) {$v_1$};
+        \node[vertex, label=right:{$\delta=3$}] (v2) at (2,1) {$v_2$};
+        \node[vertex, label=below:{$\delta=2$}] (v3) at (1,-1) {$v_3$};
+        \node[vertex, label=below:{$\delta=2$}] (v4) at (-1,-1) {$v_4$};
+        \node[vertex, label=left:{$\delta=3$}] (v5) at (-2,1) {$v_5$};
+
+        % Arestas
+        \draw[edge] (v1) -- (v2);
+        \draw[edge] (v2) -- (v3);
+        \draw[edge] (v3) -- (v4);
+        \draw[edge] (v4) -- (v5);
+        \draw[edge] (v5) -- (v1);
+        \draw[edge] (v2) -- (v5); % Aresta interna
+    \end{tikzpicture}
+    \caption{Grafo ilustrando o Lema do Aperto de Mão. A soma dos graus ($12$) é o dobro do número de arestas ($6$).}
+    \label{fig:aperto_mao}
+\end{figure}
+
+\begin{proof}
+  Para compreender essa igualdade, podemos pensar na construção do grafo: cada aresta $\{u, v\}$ liga exatamente dois vértices. Ao desenharmos uma aresta qualquer, ela contribui com uma unidade de grau para o vértice $u$ e outra unidade para o vértice $v$. Portanto, se contarmos as extremidades de todas as arestas existentes, cada aresta terá sido contada exatamente duas vezes — uma vez para cada vértice que ela toca. Como a soma dos graus nada mais é do que o total de extremidades conectadas a todos os vértices, essa soma deve ser, obrigatoriamente, o dobro da quantidade de arestas.
+\end{proof}
+
+
+% ----------------------------------------------------------
+\subsection{Grafos Não Dirigidos e Grafos Dirigidos}
+% ----------------------------------------------------------
+
+\begin{definicao}[Grafo não dirigido e dígrafo]
+\label{def:dirigido}
+  Um grafo é dito \textit{não dirigido} quando suas arestas não possuem
+  orientação, ou seja, a relação entre dois vértices é simétrica. Um
+  \textit{grafo dirigido} (ou \textit{dígrafo}) é aquele em que as arestas
+  possuem uma orientação definida, representadas por \textit{arcos}; o arco
+  $(u, v)$ parte de $u$ e chega em~$v$, sendo distinto do arco $(v, u)$
+  \cite{cormen2009}.
+\end{definicao}
 
 Em situações práticas do cotidiano, grafos não dirigidos modelam relações
 simétricas, como amizades em redes sociais, ao passo que dígrafos modelam
 relações assimétricas, como o fluxo de tráfego em vias de mão única ou a
 navegação entre páginas da internet \cite{rosen2012}.
 
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        % Define o estilo da seta
+        >={Stealth[scale=1.2]},
+        vertex/.style={circle, draw=black!80, fill=red!10, very thick, minimum size=8mm, font=\large},
+        edge/.style={->, draw, very thick, black!80}
+    ]
+        % Vértices
+        \node[vertex] (P) at (0,2) {$P$};
+        \node[vertex] (Q) at (2.5,2) {$Q$};
+        \node[vertex] (R) at (2.5,0) {$R$};
+        \node[vertex] (S) at (0,0) {$S$};
+        % Arcos direcionados
+        \draw[edge] (P) -- (Q);
+        \draw[edge] (Q) -- (R);
+        \draw[edge] (R) -- (S);
+        \draw[edge] (S) -- (P);
+        \draw[edge] (P) -- (R);
+    \end{tikzpicture}
+    \caption{Dígrafo $\mathcal{G}_2$ evidenciando a relação assimétrica e o direcionamento de seus arcos.}
+    \label{fig:digrafo}
+\end{figure}
+
+% ----------------------------------------------------------
 \subsection{Subgrafo e Grafo Completo}
+% ----------------------------------------------------------
 
-Dado um grafo $G = (V, A)$, um \textbf{subgrafo} $H$ de $G$ é um grafo tal que
-$V(H) \subseteq V(G)$ e $A(H) \subseteq A(G)$ \cite{wilson1996}. Um grafo é
-dito \textbf{completo} quando todo par de vértices distintos está ligado por
-exatamente uma aresta; o grafo completo com $n$ vértices é denotado por $K_n$ e
-possui $\frac{n(n-1)}{2}$ arestas \cite{bondy1976}.
+\begin{definicao}[Subgrafo]
+  Dado um grafo $\mathcal{G} = (\mathcal{V},\, \mathcal{A})$, um
+  \textit{subgrafo} $\mathcal{H}$ de $\mathcal{G}$ é um grafo tal que
+  $\mathcal{V}(\mathcal{H}) \subseteq \mathcal{V}(\mathcal{G})$ e
+  $\mathcal{A}(\mathcal{H}) \subseteq \mathcal{A}(\mathcal{G})$
+  \cite{wilson1996}.
+\end{definicao}
 
+\begin{definicao}[Grafo completo]
+\label{def:completo}
+  Um grafo é dito \textit{completo} quando todo par de vértices distintos está
+  ligado por exatamente uma aresta. O grafo completo com $n$ vértices é
+  denotado por $K_n$ \cite{bondy1976}.
+\end{definicao}
+
+\begin{teorema}
+  O grafo completo $K_n$ possui exatamente $\dfrac{n(n-1)}{2}$ arestas, e
+  cada vértice possui grau $n - 1$.
+\end{teorema}
+
+\begin{proof}
+  Em um grafo completo $K_n$, cada vértice deve se conectar a todos os outros $n-1$ vértices disponíveis no conjunto $\mathcal{V}$. Por essa característica, o grau de qualquer vértice $v$ é exatamente $n-1$. Aplicando agora o Lema do Aperto de Mão (Lema \ref{lema:handshaking}), temos que a soma dos graus é $n \times (n-1)$. Como essa soma equivale ao dobro do número de arestas ($2|\mathcal{A}|$), isolamos $|\mathcal{A}|$:
+  \[
+    2|\mathcal{A}| = n(n-1) \implies |\mathcal{A}| = \frac{n(n-1)}{2}.
+  \]
+  Isso confirma que o número de conexões possíveis em um grafo onde todos se ligam é dado por essa fórmula combinatória simples.
+\end{proof}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        vertex/.style={circle, draw=black!80, fill=green!15, very thick, minimum size=8mm, font=\large},
+        edge/.style={draw, very thick, black!70}
+    ]
+        % Posições formando um quadrado/losango
+        \node[vertex] (1) at (0,2.5) {$1$};
+        \node[vertex] (2) at (2.5,0) {$2$};
+        \node[vertex] (3) at (0,-2.5) {$3$};
+        \node[vertex] (4) at (-2.5,0) {$4$};
+        % Arestas externas e diagonais
+        \draw[edge] (1) -- (2); 
+        \draw[edge] (1) -- (3);
+        \draw[edge] (1) -- (4);
+        \draw[edge] (2) -- (3); 
+        \draw[edge] (2) -- (4);
+        \draw[edge] (3) -- (4);
+    \end{tikzpicture}
+    \caption{Grafo completo $K_4$. Cada vértice se conecta a todos os outros $n-1$ vértices.}
+    \label{fig:grafo_completo}
+\end{figure}
+
+% ----------------------------------------------------------
 \subsection{Caminho, Ciclo e Conectividade}
-
-Um \textbf{caminho} em um grafo é uma sequência de vértices distintos
-$v_1, v_2, \ldots, v_k$ tal que existe uma aresta entre cada par consecutivo
-$(v_i, v_{i+1})$ \cite{diestel2017}. Um \textbf{ciclo} é um caminho fechado,
-isto é, um caminho em que o primeiro e o último vértice coincidem
-\cite{boaventura2009}. Um grafo é denominado \textbf{conexo} quando existe pelo
-menos um caminho entre qualquer par de vértices; caso contrário, é dito
-\textbf{desconexo} \cite{rosen2012}.
-
-% ----------------------------------------------------------
-\section{Exemplos Ilustrativos com Representação Gráfica}
 % ----------------------------------------------------------
 
-A seguir são apresentados três exemplos que ilustram as definições anteriores,
-cada um acompanhado de sua representação gráfica construída com TikZ.
+\begin{definicao}[Caminho]
+  Um \textit{caminho} em um grafo é uma sequência de vértices distintos
+  $v_1, v_2, \ldots, v_k$ tal que existe uma aresta entre cada par consecutivo
+  $(v_i, v_{i+1})$ \cite{diestel2017}. O número de arestas percorridas é o
+  \textit{comprimento} do caminho.
+\end{definicao}
 
-\subsection{Exemplo 1 --- Grafo Não Dirigido}
+\begin{definicao}[Ciclo]
+  Um \textit{ciclo} é um caminho fechado, isto é, um caminho em que o primeiro
+  e o último vértice coincidem \cite{boaventura2009}. Um grafo sem ciclos é
+  denominado \textit{acíclico} ou \textit{floresta}.
+\end{definicao}
 
-Considere o grafo $G_1 = (V_1,\, A_1)$ em que
+\begin{definicao}[Grafo conexo]
+  Um grafo é denominado \textit{conexo} quando existe pelo menos um caminho
+  entre qualquer par de vértices; caso contrário, é dito \textit{desconexo}
+  \cite{rosen2012}. As partes maximais conexas de um grafo desconexo são
+  chamadas de \textit{componentes conexas}.
+\end{definicao}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        vertex/.style={circle, draw=black!80, fill=yellow!15, very thick, minimum size=8mm, font=\large},
+        edge/.style={draw, very thick, black!70},
+        highlight/.style={draw, line width=2pt, orange} % Destaque para o caminho
+    ]
+        % Componente 1: Um Ciclo
+        \node[vertex] (A) at (0,0) {$A$};
+        \node[vertex] (B) at (1,2) {$B$};
+        \node[vertex] (C) at (2,0) {$C$};
+        \draw[edge] (A) -- (B) -- (C) -- (A);
+        % Componente 2: Um Caminho
+        \node[vertex] (D) at (4.5,1) {$D$};
+        \node[vertex] (E) at (6,0) {$E$};
+        \node[vertex] (F) at (7.5,1.5) {$F$};
+        \draw[highlight] (D) -- (E) -- (F);
+        % Legendas internas
+        \node[anchor=north] at (1,-0.5) {Componente 1 (Ciclo)};
+        \node[anchor=north] at (6,-0.5) {Componente 2 (Caminho)};
+    \end{tikzpicture}
+    \caption{Um grafo desconexo formado por duas componentes conexas distintas.}
+    \label{fig:conectividade}
+\end{figure}
+
+% ----------------------------------------------------------
+\subsection{Caminho e Circuito Euleriano}
+\label{sec:euleriano}
+% ----------------------------------------------------------
+
+\begin{definicao}[Caminho euleriano e circuito euleriano]
+\label{def:euleriano}
+  Um \textit{caminho euleriano} é um caminho que percorre cada aresta do grafo
+  exatamente uma vez. Um \textit{circuito euleriano} é um caminho euleriano
+  que retorna ao vértice de origem \cite{euler1736}.
+\end{definicao}
+
+\begin{teorema}[Teorema de Euler]
+\label{teo:euler}
+  Um grafo conexo admite um circuito euleriano se, e somente se, todos os seus
+  vértices possuem grau par. Admite um caminho euleriano (sem ser circuito) se,
+  e somente se, possui exatamente dois vértices de grau ímpar
+  \cite{diestel2017}.
+\end{teorema}
+
+\begin{proof}
+  A demonstração clássica baseia-se na ideia de entrada e saída. Se o grafo possui um circuito euleriano, ao percorrê-lo, cada vez que entramos em um vértice por uma aresta, devemos sair por outra aresta distinta (já que não podemos repetir arestas). Isso implica que as arestas incidentes em qualquer vértice que não seja o de início/fim devem ocorrer em pares (uma para entrar, uma para sair). No caso de um circuito, onde o ponto de partida é o mesmo de chegada, todos os vértices — inclusive o inicial — terminam com um número par de incidências. Portanto, a condição de grau par é necessária para garantir que nunca fiquemos "presos" em um vértice sem uma aresta de saída disponível.
+\end{proof}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        vertex/.style={circle, draw=black!80, fill=purple!15, very thick, minimum size=6mm, font=\small},
+        edge/.style={draw, very thick, black!70}
+    ]
+        % Vértices da "casa" com indicação de seus graus
+        \node[vertex, label=left:{$\delta=3$}] (A) at (0,0) {};
+        \node[vertex, label=right:{$\delta=3$}] (B) at (2.5,0) {};
+        \node[vertex, label=left:{$\delta=4$}] (C) at (0,2.5) {};
+        \node[vertex, label=right:{$\delta=4$}] (D) at (2.5,2.5) {};
+        \node[vertex, label=above:{$\delta=2$}] (E) at (1.25,4) {};
+
+        % Arestas formando o quadrado, as diagonais cruzadas e o telhado
+        \draw[edge] (A) -- (B) -- (D) -- (C) -- (A);
+        \draw[edge] (A) -- (D);
+        \draw[edge] (B) -- (C);
+        \draw[edge] (C) -- (E) -- (D);
+    \end{tikzpicture}
+    \caption{O famoso grafo em formato de "envelope" ou "casa". Por possuir exatamente dois vértices com grau ímpar na base, ele admite um caminho euleriano, mas não um circuito.}
+    \label{fig:euleriano}
+\end{figure}
+
+% ----------------------------------------------------------
+\section{O Ensino de Grafos na Literatura Acadêmica}
+% ----------------------------------------------------------
+
+Nesta seção, apresentamos uma breve revisão de trabalhos acadêmicos que discutiram a inserção da Teoria dos Grafos no Ensino Médio. A literatura mostra que, embora o tema ainda seja pouco explorado nos currículos oficiais, há um crescente interesse por parte de pesquisadores em Educação Matemática.
+
+\citeonline{malta2008}, em sua dissertação de mestrado, compartilha da ideia de que ``a Teoria dos Grafos apresenta aspectos pertinentes que merecem espaço no currículo da Escola Básica''. A autora apoia-se no contexto histórico para considerar que pertencem à Introdução da Teoria dos Grafos os conceitos que surgiram até o século XVIII, desde \textit{O Problema das Sete Pontes de Königsberg} (1736) até o \textit{Icosian Game} (1856), desenvolvidos por Leonhard Euler e William Hamilton, respectivamente.
+
+Como a Teoria dos Grafos foi formulada a partir de um problema, acreditamos que a metodologia de Resolução de Problemas pode ser utilizada para a abordagem de Grafos no Ensino Médio. Reafirmando a escolha desse caminho, as \textit{Orientações Educacionais Complementares aos Parâmetros Curriculares Nacionais} (PCN+) enfatizam que a resolução de problemas é peça central para o ensino de Matemática, pois o pensar e o fazer se mobilizam e se desenvolvem quando o indivíduo está engajado ativamente no enfrentamento de desafios \cite{brasil2002}. Essa competência não se desenvolve quando propomos apenas exercícios de aplicação dos conceitos e técnicas matemáticas, pois, neste caso, o que está em ação é uma simples transposição analógica \cite{brasil2002}.
+
+Adicionalmente, a Lei de Diretrizes e Bases da Educação Nacional (LDB) preconiza que as metodologias de ensino sejam adequadas ao cotidiano discente \cite{brasil1996}. Tal diretriz busca fomentar o pensamento autônomo e a criação de soluções próprias, permitindo que o estudante desenvolva independência na capacidade de resolver problemas.
+
+Nesse mesmo sentido, \citeonline{rodrigues2021} analisam como a inserção de tópicos de Teoria dos Grafos pode favorecer uma formação matemática mais robusta e conectada ao universo digital, alinhando o currículo escolar às demandas da contemporaneidade. Os autores destacam a importância do pensamento computacional e da modelagem de problemas do cotidiano.
+
+Ainda sob a ótica da tecnologia, \citeonline{silva2020} propõe uma sequência didática para o ensino de grafos no Ensino Médio utilizando o software GeoGebra, evidenciando as potencialidades das ferramentas digitais para a visualização e exploração dos conceitos.
+
+% ----------------------------------------------------------
+\subsection{Exemplos Ilustrativos com Representação Gráfica}
+% ----------------------------------------------------------
+
+Os três exemplos a seguir ilustram as definições apresentadas e servirão de
+referência para as atividades do Capítulo~\ref{cap:proposta}.
+
+% ----------------------------------------------------------
+\subsubsection{Grafo Não Dirigido}
+% ----------------------------------------------------------
+
+
+\label{ex:nao_dirigido}
+Considere o grafo $\mathcal{G}_1 = (\mathcal{V}_1,\, \mathcal{A}_1)$ em que
 \[
-  V_1 = \{A,\, B,\, C,\, D,\, E\}
+  \mathcal{V}_1 = \{A,\, B,\, C,\, D,\, E\}
   \quad \text{e} \quad
-  A_1 = \{AB,\, AC,\, AD,\, BC,\, CD,\, DE,\, EA\}.
+  \mathcal{A}_1 = \{AB,\, AC,\, AD,\, BC,\, CD,\, DE,\, EA\}.
 \]
 
-Esse grafo possui $|V_1|=5$ vértices e $|A_1|=7$ arestas. Aplicando o Lema do
-Aperto de Mão (equação~\ref{eq:lema_aperto}), a soma dos graus deve ser
-$2 \times 7 = 14$. De fato: $\delta(A)=4$, $\delta(B)=2$, $\delta(C)=3$,
-$\delta(D)=3$, $\delta(E)=2$, totalizando $4+2+3+3+2=14$~\checkmark
+Esse grafo possui $|\mathcal{V}_1| = 5$ vértices e $|\mathcal{A}_1| = 7$
+arestas. Aplicando o Lema do Aperto de Mão
+(Lema~\ref{lema:handshaking}), a soma dos graus deve ser $2 \times 7 = 14$. De fato: $\delta(A) = 4$, $\delta(B) = 2$, $\delta(C) = 3$, $\delta(D) = 3$,
+$\delta(E) = 2$, totalizando $4 + 2 + 3 + 3 + 2 = 14$ \checkmark
+
 
 \begin{figure}[htb]
   \centering
@@ -738,11 +954,11 @@ $\delta(D)=3$, $\delta(E)=2$, totalizando $4+2+3+3+2=14$~\checkmark
                        minimum size=1.2cm, font=\sffamily\bfseries},
       edge/.style   = {thick}
   ]
-    \node[vertex] (A) at (0,0)    {A};
-    \node[vertex] (B) at (3,1)    {B};
-    \node[vertex] (C) at (4,-2)   {C};
-    \node[vertex] (D) at (1,-2.5) {D};
-    \node[vertex] (E) at (-1,-1)  {E};
+    \node[vertex] (A) at (0,0)    {$A$};
+    \node[vertex] (B) at (3,1)    {$B$};
+    \node[vertex] (C) at (4,-2)   {$C$};
+    \node[vertex] (D) at (1,-2.5) {$D$};
+    \node[vertex] (E) at (-1,-1)  {$E$};
 
     \draw[edge] (A) -- (B);
     \draw[edge] (A) -- (C);
@@ -751,29 +967,35 @@ $\delta(D)=3$, $\delta(E)=2$, totalizando $4+2+3+3+2=14$~\checkmark
     \draw[edge] (C) -- (D);
     \draw[edge] (D) -- (E);
     \draw[edge] (E) -- (A);
-  \end{tikzpicture}
-  \caption{Grafo não dirigido $G_1$ com 5 vértices e 7 arestas.}
+\end{tikzpicture}
+  \caption{Grafo não dirigido $\mathcal{G}_1$ com 5 vértices e 7 arestas
+           (Exemplo~\ref{ex:nao_dirigido}).}
   \label{fig:grafo_nao_dirigido}
 \end{figure}
 
 Esse grafo pode modelar, por exemplo, um mapa rodoviário simplificado em que os
 vértices representam cidades e as arestas representam estradas de mão dupla que
-as interligam \cite{jurkiewicz2007}.
+as interligam \cite{jurkiewicz2007}. Verifique ainda que $\delta(A) = 4$ e
+$\delta(B) = \delta(E) = 2$ são pares, enquanto $\delta(C) = \delta(D) = 3$
+são ímpares; há exatamente dois vértices de grau ímpar, logo $\mathcal{G}_1$
+admite caminho euleriano, mas não circuito euleriano
+(Teorema~\ref{teo:euler}).
 
-\subsection{Exemplo 2 --- Grafo Dirigido (Dígrafo)}
+% ----------------------------------------------------------
+\subsubsection{Grafo Dirigido (Dígrafo)}
+% ----------------------------------------------------------
 
-Considere agora o dígrafo $G_2 = (V_2,\, A_2)$ em que
+
+\label{ex:digrafo}
+Considere o dígrafo $\mathcal{G}_2 = (\mathcal{V}_2,\, \mathcal{A}_2)$ em que
 \[
-  V_2 = \{P,\, Q,\, R,\, S\}
+  \mathcal{V}_2 = \{P,\, Q,\, R,\, S\}
   \quad \text{e} \quad
-  A_2 = \{(P,Q),\, (Q,R),\, (R,S),\, (S,P),\, (P,R)\}.
+  \mathcal{A}_2 = \{(P,Q),\, (Q,R),\, (R,S),\, (S,P),\, (P,R)\}.
 \]
+Os arcos possuem direção: o arco $(P, Q)$ representa uma relação que parte de
+$P$ e chega em~$Q$, mas não necessariamente o contrário.
 
-Nesse caso, os arcos possuem direção: por exemplo, o arco $(P, Q)$ representa
-uma relação que parte de $P$ e chega em~$Q$, mas não necessariamente o
-contrário. Esse tipo de estrutura é adequado para modelar, entre outros
-contextos, vias de mão única em uma cidade ou o fluxo de informações em uma
-rede de computadores \cite{cormen2009}.
 
 \begin{figure}[htb]
   \centering
@@ -783,26 +1005,34 @@ rede de computadores \cite{cormen2009}.
       arc/.style     = {thick, -{Stealth[length=7pt]}},
       node distance  = 3cm
   ]
-    \node[vertex] (P) at (0,0)   {P};
-    \node[vertex] (Q) at (3,0)   {Q};
-    \node[vertex] (R) at (3,-3)  {R};
-    \node[vertex] (S) at (0,-3)  {S};
-
+    \node[vertex] (P) at (0,0)   {$P$};
+    \node[vertex] (Q) at (3,0)   {$Q$};
+    \node[vertex] (R) at (3,-3)  {$R$};
+    \node[vertex] (S) at (0,-3)  {$S$};
     \draw[arc] (P) -- (Q);
     \draw[arc] (Q) -- (R);
     \draw[arc] (R) -- (S);
     \draw[arc] (S) -- (P);
     \draw[arc] (P) -- (R);
-  \end{tikzpicture}
-  \caption{Dígrafo $G_2$ com 4 vértices e 5 arcos orientados.}
-  \label{fig:digrafo}
+\end{tikzpicture}
+  \caption{Dígrafo $\mathcal{G}_2$ com 4 vértices e 5 arcos orientados
+           (Exemplo~\ref{ex:digrafo}).}
+  \label{fig:digrafo_ex2}
 \end{figure}
 
-\subsection{Exemplo 3 --- Grafo Completo $K_4$}
+Essa estrutura é adequada para modelar vias de mão única em uma cidade ou o
+fluxo de informações em uma rede de computadores \cite{cormen2009}. A distinção
+entre grafos dirigidos e não dirigidos será explorada no Apêndice~\ref{apendice:redes}.
 
-O grafo completo $K_4$ possui $n = 4$ vértices e $\frac{4 \times 3}{2} = 6$
-arestas, sendo todo par de vértices adjacente. Todos os vértices possuem grau
-$\delta = n - 1 = 3$ \cite{bondy1976}.
+% ----------------------------------------------------------
+\subsubsection{Grafo Completo $K_4$}
+% ----------------------------------------------------------
+
+
+\label{ex:k4}
+O grafo completo $K_4$ possui $n = 4$ vértices e
+$\dfrac{4 \times 3}{2} = 6$ arestas, sendo todo par de vértices adjacente.
+Todos os vértices possuem grau $\delta = n - 1 = 3$ \cite{bondy1976}.
 
 \begin{figure}[htb]
   \centering
@@ -811,10 +1041,10 @@ $\delta = n - 1 = 3$ \cite{bondy1976}.
                        minimum size=1.2cm, font=\sffamily\bfseries},
       edge/.style   = {thick}
   ]
-    \node[vertex] (1) at (0, 2)   {1};
-    \node[vertex] (2) at (2, 0)   {2};
-    \node[vertex] (3) at (0,-2)   {3};
-    \node[vertex] (4) at (-2, 0)  {4};
+    \node[vertex] (1) at (0, 2)   {$1$};
+    \node[vertex] (2) at (2, 0)   {$2$};
+    \node[vertex] (3) at (0,-2)   {$3$};
+    \node[vertex] (4) at (-2, 0)  {$4$};
 
     \draw[edge] (1) -- (2);
     \draw[edge] (1) -- (3);
@@ -822,108 +1052,216 @@ $\delta = n - 1 = 3$ \cite{bondy1976}.
     \draw[edge] (2) -- (3);
     \draw[edge] (2) -- (4);
     \draw[edge] (3) -- (4);
-  \end{tikzpicture}
-  \caption{Grafo completo $K_4$ com 4 vértices e 6 arestas.}
+\end{tikzpicture}
+  \caption{Grafo completo $K_4$ com 4 vértices e 6 arestas
+           (Exemplo~\ref{ex:k4}).}
   \label{fig:k4}
 \end{figure}
 
 Os grafos completos são frequentemente utilizados como casos-limite em problemas
 de otimização combinatória, como o clássico Problema do Caixeiro Viajante, que
 busca o menor caminho que passa por todos os vértices exatamente uma vez
-\cite{rosen2012}.
+\cite{rosen2012}. Esse problema é retomado na proposta didática do Apêndice~\ref{apendice:caixeiro}.
 
-% ----------------------------------------------------------
-\section{Relação com a BNCC}
-% ----------------------------------------------------------
+% ==========================================================
+\chapter{ANÁLISE DOCUMENTAL: A TEORIA DOS GRAFOS E A BNCC}
+\label{cap:bncc}
+% ==========================================================
 
 Investigar a relevância da Teoria dos Grafos no contexto da Educação Básica e
 sua relação com as competências e habilidades previstas na BNCC é essencial para
-justificar sua inserção curricular. A Teoria dos Grafos é uma ferramenta
-poderosa para modelar e resolver problemas do cotidiano, e sua inclusão no
-currículo pode proporcionar uma abordagem mais prática e aplicada de conceitos
-matemáticos, permitindo que os alunos desenvolvam habilidades críticas e
-analíticas.
+justificar sua inserção curricular. Este capítulo analisa a Base Nacional Comum
+Curricular (BNCC) e documentos complementares, identificando pontos de
+articulação com os conceitos de grafos apresentados no capítulo anterior.
 
-A Base Nacional Comum Curricular (BNCC) enfatiza a importância de desenvolver
-competências que preparem os alunos para enfrentar desafios do mundo real. A
-Teoria dos Grafos pode ser utilizada para:
+% ----------------------------------------------------------
+\section{A Matemática Discreta no Ensino Médio}
+% ----------------------------------------------------------
+
+A Matemática Discreta, da qual a Teoria dos Grafos é um dos ramos mais
+proeminentes, tradicionalmente tem pouco espaço no currículo do Ensino Médio
+brasileiro, que prioriza áreas como Álgebra, Geometria e Análise (Cálculo
+diferencial e integral elementar). No entanto, a BNCC, ao propor a formação
+integral do estudante e o desenvolvimento de competências para o século XXI,
+abre brechas para a inclusão de tópicos de Matemática Discreta.
+
+O documento oficial destaca a importância de o estudante ``identificar e
+representar relações de interdependência entre grandezas, modelizar situações
+diversas e resolver problemas que envolvem contagens, arranjos, combinações e
+probabilidades'' \cite{brasil2018}. Embora mencione explicitamente análise
+combinatória, a Teoria dos Grafos aparece como um desdobramento natural desses
+estudos, fornecendo uma linguagem visual e relacional para problemas de
+otimização e conectividade.
+
+Além disso, as competências específicas de Matemática para o Ensino Médio, como
+``utilizar estratégias, conceitos e procedimentos matemáticos para interpretar
+situações em diversos contextos'' e ``propor ou participar de ações para
+investigar desafios do mundo contemporâneo'', alinham-se perfeitamente à
+abordagem por meio de grafos.
+
+\subsection{Relevância da Teoria dos Grafos na Educação Básica}
+
+A investigação da relevância da Teoria dos Grafos no contexto da Educação Básica e sua relação com as competências e habilidades previstas na BNCC revela que ela é uma ferramenta poderosa para modelar e resolver problemas do cotidiano. Sua inclusão no currículo pode proporcionar uma abordagem mais prática e aplicada de conceitos matemáticos, permitindo que os alunos desenvolvam habilidades críticas e analíticas. A Base Nacional Comum Curricular (BNCC) \cite{brasil2018} enfatiza a importância de desenvolver competências que preparem os alunos para enfrentar desafios do mundo real.
+
+A Teoria dos Grafos pode ser utilizada para:
 
 \begin{itemize}
-  \item \textbf{Desenvolvimento do pensamento computacional}: a BNCC defende a
-        promoção do pensamento algorítmico e computacional, e a Teoria dos Grafos
-        oferece uma linguagem matemática que pode ser utilizada para resolver
-        problemas complexos, como otimização de rotas e análise de redes;
-  \item \textbf{Interdisciplinaridade}: sua aplicação pode ser integrada a
-        diversas disciplinas, como Ciências, Geografia e História, permitindo uma
-        aprendizagem mais contextualizada e significativa.
+    \item Promover o pensamento algorítmico e computacional defendido pela BNCC. A Teoria dos Grafos oferece uma linguagem matemática que pode ser utilizada para resolver problemas complexos, como otimização de rotas e análise de redes.
+    \item Integrar-se a diversas disciplinas, como Ciências, Geografia e História, permitindo uma aprendizagem mais contextualizada e significativa.
 \end{itemize}
 
-% ==========================================================
-\chapter{ESTRATÉGIAS DIDÁTICAS PARA O ENSINO DE GRAFOS}
-% ==========================================================
+\subsection{Estratégias Didáticas para a Introdução de Grafos}
 
-Discutem-se, neste capítulo, potenciais estratégias didáticas para a introdução
-dos conceitos de grafos no Ensino Médio, com foco em abordagens
-interdisciplinares e contextualizadas.
+Discutir potenciais estratégias didáticas para a introdução dos conceitos de grafos no Ensino Médio, com foco em abordagens interdisciplinares e contextualizadas, mostra que a resolução de problemas ligados ao cotidiano é uma das maneiras mais eficientes de se abordar o assunto. Isso corrobora a recomendação de dar ``ênfase na resolução de problemas, na exploração da Matemática a partir dos problemas vividos no cotidiano e encontrados nas várias disciplinas'' \cite{brasil2002}.
 
-A resolução de problemas ligados ao cotidiano é uma das maneiras de se abordar a
-Teoria dos Grafos, com a recomendação de ``ênfase na resolução de problemas, na
-exploração da Matemática a partir dos problemas vividos no cotidiano e
-encontrados nas várias disciplinas'' \cite[p.~20]{brasil2002}.
+Adicionalmente, a LDB (Lei de Diretrizes e Bases da Educação Nacional) preconiza que as metodologias de ensino sejam adequadas ao cotidiano discente \cite{brasil1996}. Tal diretriz busca fomentar o pensamento autônomo e a criação de soluções próprias, permitindo que o estudante desenvolva independência na capacidade de resolver problemas.
 
-Adicionalmente, a LDB (Lei de Diretrizes e Bases da Educação Nacional) preconiza
-que as metodologias de resolução de problemas sejam adequadas ao cotidiano
-discente \cite{brasil1996}. Tal diretriz busca fomentar o pensamento autônomo e a criação de
-soluções próprias, permitindo que o estudante desenvolva independência na
-capacidade de resolver problemas.
+Assim como ocorreu em outros estados, a Bahia vem incorporando atualizações importantes em suas diretrizes, fruto do trabalho coletivo de professores e equipes técnicas. Entre essas iniciativas, destacam-se propostas que ampliam o repertório matemático dos estudantes, incluindo temas que raramente aparecem no currículo tradicional, como elementos introdutórios da Teoria dos Grafos.
 
-Assim como ocorreu em outros estados, a Bahia vem incorporando atualizações
-importantes em suas diretrizes, fruto do trabalho coletivo de professores e
-equipes técnicas. Entre essas iniciativas, destacam-se propostas que ampliam o
-repertório matemático dos estudantes, incluindo temas que raramente aparecem no
-currículo tradicional, como elementos introdutórios da Teoria dos Grafos.
+Compartilhamos da ideia de \citeonline{malta2008}, quando diz que ``a Teoria dos Grafos apresenta aspectos pertinentes que merecem espaço no currículo da Escola Básica'', mas, conforme apresentado no documento norteador, o que poderia ser considerado uma Introdução à Teoria dos Grafos?
 
-Compartilhamos da ideia de \citeonline{malta2008} quando afirma que ``a Teoria
-dos Grafos apresenta aspectos pertinentes que merecem espaço no currículo da
-Escola Básica''. Mas, conforme apresentado no documento norteador, o que poderia
-ser considerado uma introdução à Teoria dos Grafos?
+Recorrendo à história, verificamos que o estudo sobre esse ramo da matemática surgiu com \textit{O problema das Sete Pontes de Königsberg} (1736) e foi aperfeiçoado com o \textit{Icosian Game} (1856), desenvolvidos por Leonhard Euler e William Hamilton, respectivamente. Assim, apoiamo-nos nesse contexto histórico para considerar que pertencem à introdução da Teoria dos Grafos os conceitos que surgiram até o século XVIII.
 
-Recorrendo à história, verificamos que o estudo sobre esse ramo da Matemática
-surgiu com o problema das Sete Pontes de Königsberg (1736) e foi aperfeiçoado
-com o \textit{Icosian Game} (1856), desenvolvidos por Leonhard Euler e William
-Rowan Hamilton, respectivamente. Assim, apoiamo-nos nesse contexto histórico
-para considerar que pertencem à introdução da Teoria dos Grafos aqueles conceitos
-que surgiram até o século XVIII.
+Como visto anteriormente, a Teoria dos Grafos foi formulada a partir de um problema. Logo, acreditamos que a metodologia de Resolução de Problemas pode ser utilizada para a abordagem de Grafos no Ensino Médio. Reafirmando a escolha desse caminho, as Orientações Educacionais Complementares aos Parâmetros Curriculares Nacionais (PCN+) enfatizam que a resolução de problemas é peça central para o ensino de Matemática, pois o pensar e o fazer se mobilizam e se desenvolvem quando o indivíduo está engajado ativamente no enfrentamento de desafios.
 
-Como visto anteriormente, a Teoria dos Grafos foi formulada a partir de um
-problema. Logo, acreditamos que a metodologia de Resolução de Problemas pode ser
-utilizada para a abordagem de grafos no Ensino Médio.
+\begin{quote}
+\small
+Essa competência não se desenvolve quando propomos apenas exercícios de aplicação dos conceitos e técnicas matemáticas, pois, neste caso, o que está em ação é uma simples transposição analógica: o aluno busca na memória um exercício semelhante e desenvolve passos análogos aos daquela situação, o que não garante que seja capaz de utilizar seus conhecimentos em situações diferentes ou mais complexas \cite{brasil2002}.
+\end{quote}
 
-Reafirmando a escolha desse caminho, as Orientações Educacionais Complementares
-aos Parâmetros Curriculares Nacionais (PCN+) enfatizam que a resolução de
-problemas é peça central para o ensino de Matemática, pois o pensar e o fazer se
-mobilizam e se desenvolvem quando o indivíduo está engajado ativamente no
-enfrentamento de desafios \cite[p.~53]{brasil2002}.
+% ----------------------------------------------------------
+\section{Relação com as Competências e Habilidades da BNCC}
+% ----------------------------------------------------------
 
-Essa competência não se desenvolve quando propomos apenas exercícios de aplicação
-dos conceitos e técnicas matemáticas, pois, nesse caso, o que está em ação é uma
-simples transposição analógica: o aluno busca na memória um exercício semelhante
-e desenvolve passos análogos aos daquela situação, o que não garante que seja
-capaz de utilizar seus conhecimentos em situações diferentes ou mais complexas
-\cite[p.~112]{brasil2002}.
+A Base Nacional Comum Curricular (BNCC) \cite{brasil2018} enfatiza a importância de desenvolver competências que preparem os alunos para enfrentar desafios do mundo real. Os conceitos formalizados no Capítulo~\ref{cap:fundamentos} e operacionalizados nas atividades do Capítulo~\ref{cap:proposta} articulam-se diretamente com diversas habilidades do documento. A Teoria dos Grafos oferece uma linguagem matemática poderosa que pode ser utilizada para resolver problemas complexos, como otimização de rotas e análise de redes.
+
+Podemos destacar as seguintes habilidades:
+
+\begin{itemize}
+  \item \textbf{EM13MAT101}: ``Interpretar situações econômicas, sociais e científicas por meio de gráficos, tabelas e medidas, identificando relações de dependência e representando-as por meio de modelos matemáticos''. A modelagem de redes sociais, rotas de transporte e problemas de conexão atende diretamente a essa habilidade.
+  \item \textbf{EM13MAT201}: ``Propor e testar estratégias de resolução de problemas de contagem que envolvem agrupamentos ordenáveis ou não ordenáveis, de modo a construir e aplicar os conceitos de arranjo, combinação e permutação''. O Problema do Caixeiro Viajante e a contagem de rotas são exemplos concretos.
+  \item \textbf{EM13MAT307}: ``Empregar diferentes estratégias para resolver problemas envolvendo a determinação de um percurso ou a organização de um circuito, considerando condições de adjacência, conectividade e otimização''. Essa habilidade é praticamente uma descrição do estudo de caminhos e circuitos eulerianos.
+  \item \textbf{EM13MAT315}: ``Utilizar conhecimentos matemáticos para compreender e atuar no mundo digital, aplicando conceitos de algoritmos, pensamento computacional e modelagem''. A Teoria dos Grafos é fundamental para algoritmos de busca e sistemas de recomendação.
+  \item \textbf{EM13MAT401}: ``Converter representações algébricas de funções polinomiais de 1º grau para representações geométricas no plano cartesiano, distinguindo os casos nos quais o comportamento é proporcional, recorrendo ou não a softwares ou aplicativos de álgebra e geometria dinâmica''. O estudo de grafos enriquece a visualização estrutural dessas relações e do pensamento analítico.
+\end{itemize}
+
+% ----------------------------------------------------------
+\section{O Pensamento Computacional e a Interdisciplinaridade}
+% ----------------------------------------------------------
+
+A BNCC defende a promoção do pensamento algorítmico e computacional, e a Teoria dos Grafos oferece uma linguagem matemática ideal para resolver problemas complexos, como a otimização de rotas e a análise de redes. Ela fornece a base teórica perfeita para ensinar esses conceitos sem a necessidade imediata de computadores, mas servindo de ponte estruturada para atividades tecnológicas mais avançadas.
+
+Além disso, a interdisciplinaridade é um princípio estruturante do Novo Ensino Médio. A aplicação da Teoria dos Grafos pode ser integrada a diversas disciplinas, permitindo uma aprendizagem mais contextualizada e significativa:
+
+\begin{itemize}
+  \item \textbf{Geografia e História}: estudo de rotas comerciais, mapas, expansão territorial e o próprio contexto do Problema das Pontes de Königsberg.
+  \item \textbf{Ciências e Biologia}: representação de cadeias alimentares, redes metabólicas e estudos epidemiológicos sobre a propagação de doenças.
+  \item \textbf{Língua Portuguesa}: análise de redes semânticas e diagramas de organização de texto.
+\end{itemize}
+
+O cruzamento dessas áreas mostra ao estudante como a Matemática atua como uma linguagem universal para a resolução de problemas complexos que extrapolam os limites exatos da disciplina.
 
 % ==========================================================
-\chapter{CONCLUSÃO}
+\chapter{PROPOSTA DIDÁTICA PARA O ENSINO DE GRAFOS}
+\label{cap:proposta}
 % ==========================================================
 
-Contextualização inicial para apresentar o problema e ressaltar a importância do
-trabalho; pequeno parágrafo para conclusão de cada título; parágrafo sobre
-metodologia; um parágrafo que responde ao problema de pesquisa e, para impressionar
-a banca, pode ser incluído um último parágrafo com sugestões para a continuidade
-ou o aprofundamento da pesquisa.
+Os capítulos anteriores construíram dois pilares complementares: o Capítulo~\ref{cap:fundamentos} estabeleceu o arcabouço matemático formal da Teoria dos Grafos e revisou a literatura pertinente, enquanto o Capítulo~\ref{cap:bncc} analisou as conexões desse tema com as diretrizes curriculares. O presente capítulo traduz esses pilares em uma proposta de ensino coerente, progressiva e metodologicamente fundamentada, apresentando a metodologia adotada, a descrição das propostas de atividades, sugestões de sequência didática e uma discussão sobre os desafios de implementação.
 
-\textit{[Nota: O autor deve desenvolver aqui o texto conclusivo definitivo
-baseado nas diretrizes apontadas no seu rascunho.]}
+% ----------------------------------------------------------
+\section{Metodologia de Resolução de Problemas}
+\label{sec:metodologia}
+% ----------------------------------------------------------
+
+A resolução de problemas ligados ao cotidiano é uma das maneiras mais adequadas para se abordar a Teoria dos Grafos no Ensino Médio. As Orientações Educacionais Complementares aos Parâmetros Curriculares Nacionais (PCN+) enfatizam que a resolução de problemas é peça central para o ensino de Matemática, pois o pensar e o fazer se mobilizam e se desenvolvem quando o indivíduo está engajado ativamente no enfrentamento de desafios \cite{brasil2002}. Essa competência não se desenvolve quando propomos apenas exercícios de aplicação, pois, nesse caso, o que está em ação é uma simples transposição analógica, sem garantia de transferência para situações novas \cite{brasil2002}.
+
+Nessa perspectiva, cada atividade apresentada a seguir foi deliberadamente estruturada para: (i) partir de um problema concreto e motivador; (ii) conduzir o estudante à formalização gradual dos conceitos do Capítulo~\ref{cap:fundamentos}; e (iii) promover a generalização e a reflexão sobre o resultado obtido.
+
+Adicionalmente, a Lei de Diretrizes e Bases da Educação Nacional (LDB) preconiza que as metodologias de ensino sejam adequadas ao cotidiano discente \cite{brasil1996}, buscando fomentar o pensamento autônomo e a criação de soluções próprias. Por isso, as atividades utilizam contextos como redes sociais, rotas de entrega e organização de um bairro, que são situações familiares aos jovens.
+
+% ----------------------------------------------------------
+\section{Propostas Didáticas}
+\label{sec:propostas_didaticas}
+% ----------------------------------------------------------
+
+Nesta seção, são apresentadas as propostas didáticas que constituem o núcleo prático desta pesquisa, estruturadas como alternativas pedagógicas para a introdução da Teoria dos Grafos no Ensino Médio. Cada proposta é discutida aqui sob o ponto de vista de sua fundamentação e objetivos gerais, enquanto as respectivas fichas de atividades (prontas para aplicação) e seus gabaritos detalhados estão localizados nos Apêndices deste trabalho.
+
+\subsection{Proposta I --- A Vila dos Grafos: construindo e analisando um grafo}
+\label{sub:proposta_vila}
+
+Esta primeira proposta, cujo material completo de aplicação encontra-se no Apêndice~\ref{apendice:vila}, tem como objetivo introduzir os conceitos mais elementares da Teoria dos Grafos --- vértices, arestas e graus --- por meio de um problema clássico de modelagem e planejamento urbano.
+
+A abordagem escolhida permite que o aluno faça a transição do pensamento concreto (um mapa viário) para a representação matemática abstrata (o grafo). O problema convida os estudantes a atuarem como engenheiros de trânsito responsáveis por mapear as ruas de um bairro fictício. Ao desenharem as conexões entre os locais, eles constroem o grafo intuitivamente.
+
+A partir dessa construção, a atividade avança para a formalização, exigindo a listagem dos conjuntos de vértices e arestas, e o cálculo do grau de cada ponto. O ponto alto da proposta é a verificação experimental do Lema do Aperto de Mão. Em vez de receberem a fórmula pronta de que a soma dos graus é igual ao dobro do número de arestas, os alunos são levados a calcular essa soma, comparar com o mapa desenhado e deduzir a lógica geométrica por trás da relação (o fato de que cada rua possui duas extremidades). Essa estratégia transforma a sala de aula em um ambiente de experimentação, desenvolvendo a argumentação matemática e o raciocínio dedutivo.
+
+\subsection{Proposta II --- Redes Sociais e Conectividade}
+\label{sub:proposta_redes}
+
+A segunda proposta, vinculada ao roteiro de aplicação disponível no Apêndice~\ref{apendice:redes}, utiliza um cenário altamente familiar e atrativo para os jovens da atualidade: a dinâmica das redes sociais. O objetivo é explorar a diferença estrutural entre relações simétricas e assimétricas, introduzindo formalmente os conceitos de grafos não dirigidos e dígrafos (grafos dirigidos).
+
+A atividade propõe a análise de um grupo de amigos inseridos em duas plataformas distintas: uma que exige adição mútua para criar um vínculo (semelhante ao Facebook ou WhatsApp) e outra baseada em seguidores unidirecionais (como o X/Twitter ou Instagram). Os alunos precisam representar a primeira rede sem o uso de setas e a segunda utilizando arcos direcionados, calculando, em seguida, os graus de entrada e saída.
+
+Essa contextualização cumpre um papel fundamental: demonstrar que a Matemática não se resume a números e equações geométricas, mas é uma linguagem poderosa para modelar o fluxo de informações e as interações humanas no ambiente digital. Além de consolidar definições topológicas, a atividade estimula a percepção crítica sobre como os algoritmos e as regras de negócio das plataformas de tecnologia são intrinsecamente baseados em estruturas de grafos.
+
+\subsection{Proposta III --- O Problema do Caixeiro Viajante Simplificado}
+\label{sub:proposta_caixeiro}
+
+A terceira proposta, cujo instrumental pedagógico estende-se no Apêndice~\ref{apendice:caixeiro}, eleva o nível de abstração ao introduzir a otimização de rotas por meio do clássico Problema do Caixeiro Viajante (PCV). O foco desta atividade é aplicar a Teoria dos Grafos no campo da logística, abordando grafos completos e arestas ponderadas (com pesos representando distâncias).
+
+O cenário apresenta um entregador que precisa visitar quatro cidades exatas e retornar ao ponto de origem gastando o mínimo de quilometragem possível. Inicialmente, o problema parece simples, permitindo que os alunos listem todas as permutações de rotas manualmente e calculem o custo de cada uma para encontrar a menor distância.
+
+No entanto, o verdadeiro valor pedagógico da proposta surge na última etapa, quando os alunos são questionados sobre o que aconteceria se o número de cidades fosse ampliado para dez. Ao utilizarem a análise combinatória básica (cálculo de fatorial) para descobrir que haveria mais de 360 mil rotas possíveis, os estudantes vivenciam o fenômeno da explosão combinatória.
+
+Essa reflexão final é crucial para o desenvolvimento do pensamento computacional. Ela ilustra de forma impactante os limites da resolução por ``força bruta'' e justifica a necessidade do desenvolvimento de algoritmos e heurísticas na Ciência da Computação e na Matemática Aplicada para resolver problemas do mundo real, conectando o currículo da Educação Básica a desafios científicos contemporâneos.
+
+% ----------------------------------------------------------
+\section{Sequência Didática Sugerida}
+\label{sec:sequencia_didatica}
+% ----------------------------------------------------------
+
+Com base na articulação entre os fundamentos matemáticos (Capítulo~\ref{cap:fundamentos}), a análise documental (Capítulo~\ref{cap:bncc}) e as atividades propostas, sugere-se a seguinte sequência didática de quatro encontros:
+
+\begin{enumerate}
+  \item \textbf{1º encontro --- Introdução e motivação histórica:} apresentação do problema das Pontes de Königsberg como motivação histórica e como situação-problema aberta. O professor conduz uma discussão coletiva antes de formalizar a Definição~\ref{def:grafo}.
+  \item \textbf{2º encontro --- Construindo grafos:} realização da Proposta I (Apêndice~\ref{apendice:vila}), que mobiliza as Definições~\ref{def:grafo} e \ref{def:grau}, além do Lema~\ref{lema:handshaking}. O professor sistematiza o Lema do Aperto de Mão ao final.
+  \item \textbf{3º encontro --- Redes e sentidos:} discussão sobre grafos dirigidos e não dirigidos por meio da Proposta II (Apêndice~\ref{apendice:redes}). Retoma-se o Teorema~\ref{teo:euler} como fechamento da discussão sobre caminhos e circuitos.
+  \item \textbf{4º encontro --- Otimização e síntese:} realização da Proposta III (Apêndice~\ref{apendice:caixeiro}), destacando a conexão com o pensamento computacional e a explosão combinatória. O encontro encerra-se com uma reflexão sobre a presença dos grafos em aplicativos de navegação, redes sociais e outros contextos digitais.
+\end{enumerate}
+
+Recomenda-se, ao longo dos encontros, o uso de recursos digitais como o GeoGebra \cite{silva2020}, que permite a construção interativa de grafos e favorece a aprendizagem visual e exploratória.
+
+% ----------------------------------------------------------
+\section{Desafios e Limitações na Implementação na Rede Pública}
+% ----------------------------------------------------------
+
+A inserção de novos conteúdos matemáticos na rede pública esbarra primeiramente na defasagem de base dos estudantes. O distanciamento histórico em relação à álgebra e à aritmética elementar costuma gerar resistência a tópicos adicionais. Contudo, a Teoria dos Grafos tem o potencial de contornar parte desse obstáculo pedagógico devido ao seu forte caráter visual. Em vez de exigir a manipulação imediata de equações ou fórmulas complexas, a modelagem geométrica por meio de vértices e arestas permite que o aluno engaje na resolução do problema de forma mais intuitiva, atenuando a ansiedade frequentemente observada nas aulas de Matemática.
+
+Do ponto de vista do planejamento docente, o principal entrave é a quase total escassez de materiais didáticos sobre grafos voltados para o Ensino Médio em língua portuguesa. A literatura disponível concentra-se massivamente no ensino superior. Sem um material de apoio contextualizado, o professor regente --- muitas vezes já sobrecarregado pela rotina de múltiplas turmas e exigências curriculares --- precisaria adaptar todo o conteúdo por conta própria. A estruturação das propostas didáticas detalhadas nos apêndices deste trabalho surge como uma alternativa para minimizar esse obstáculo, oferecendo um roteiro de aplicação direto que poupa o tempo de preparação do professor.
+
+Outro fator estrutural limitante é a infraestrutura tecnológica das escolas. Embora a Matemática Discreta seja o alicerce da Ciência da Computação, o desenvolvimento do pensamento computacional nas escolas públicas esbarra frequentemente na falta de laboratórios de informática funcionais. As atividades propostas lidam com essa restrição ao adotar a abordagem da ``Computação Desplugada''. Ao mapear redes ou otimizar rotas usando apenas lápis e papel, os alunos simulam a lógica dos algoritmos. Eles exercitam a decomposição de problemas e a análise combinatória sem depender, em momento algum, de equipamentos eletrônicos ou acesso à internet.
+
+A carga horária regular da disciplina de Matemática também impõe restrições severas. A execução de problemas investigativos, que demandam tempo para tentativa, erro e discussão, é difícil de ser esgotada nos curtos períodos tradicionais de aula. Diante disso, a aplicação desta proposta encontra maior viabilidade nos espaços flexíveis do currículo, como as disciplinas eletivas, trilhas de aprofundamento ou clubes de ciências, especialmente no contexto das escolas de tempo integral, onde a matriz horária permite uma abordagem mais horizontal e menos corrida.
+
+Nestas circunstâncias de aplicação, o apoio logístico em sala de aula torna-se decisivo. A implementação de metodologias ativas com turmas numerosas ganha muita tração quando há a presença de acadêmicos vinculados a programas de iniciação à docência. Os pibidianos, ao atuarem como comediadores nas atividades, viabilizam um acompanhamento mais próximo aos grupos de alunos. Essa colaboração direta divide a carga de mediação com o professor titular, tornando a inserção de temas inovadores uma meta atingível e realista na educação pública.
+
+% ==========================================================
+\chapter{Considerações finais}
+% ==========================================================
+
+% ----------------------------------------------------------
+
+Este trabalho teve como objetivo central investigar e propor caminhos viáveis para a inserção teórica da Teoria dos Grafos no currículo de Matemática do Ensino Médio da rede pública de ensino. Partindo da premissa de que a educação matemática deve dialogar com a complexidade do mundo contemporâneo, a pesquisa evidenciou que a Matemática Discreta não precisa --- e não deve --- ficar restrita aos bancos universitários.
+
+Ao longo da análise documental, constatou-se que a Teoria dos Grafos possui um alinhamento natural e profundo com as competências exigidas pela Base Nacional Comum Curricular (BNCC). Mais do que cumprir uma exigência normativa, o estudo de vértices, arestas e caminhos mostrou-se uma ferramenta poderosa para o desenvolvimento do pensamento computacional. Por meio da abordagem da ``Computação Desplugada'', demonstrou-se que é perfeitamente possível ensinar aos jovens a lógica dos algoritmos, a otimização de rotas e a estruturação de dados sem a dependência de laboratórios de informática, superando uma das grandes barreiras estruturais das escolas públicas.
+
+As três propostas didáticas elaboradas neste estudo --- focadas em planejamento urbano (A Vila dos Grafos), dinâmica de redes sociais e o Problema do Caixeiro Viajante --- traduzem o rigor formal da Matemática em situações-problema do cotidiano discente. A adoção da Metodologia de Resolução de Problemas permitiu estruturar um material que não apenas transmite fórmulas, mas convida o aluno a investigar, errar, testar e deduzir relações lógicas, como o Lema do Aperto de Mão e a explosão combinatória.
+
+Reconhecemos que a transposição didática desse conteúdo para o chão da escola pública esbarra em desafios crônicos, como a defasagem matemática de base, a escassez de materiais em língua portuguesa e a sobrecarga da carga horária. No entanto, o trabalho evidenciou que essas barreiras podem ser mitigadas por meio da colaboração. A presença ativa de programas de iniciação à docência, como o PIBID, atuando em conjunto com os professores regentes, é fundamental para viabilizar metodologias ativas e garantir um acompanhamento próximo e humano aos estudantes.
+
+Por se tratar de uma pesquisa de natureza qualitativa e documental, este estudo não se encerra em si mesmo, mas atua como um ponto de partida. Como encaminhamento para trabalhos futuros, sugere-se a aplicação prática das sequências didáticas aqui propostas em turmas reais do Ensino Médio, preferencialmente em escolas de tempo integral. A coleta empírica de dados sobre a recepção dos alunos e as estratégias de raciocínio por eles adotadas enriquecerá ainda mais o debate.
+
+Espera-se que esta monografia sirva como um recurso de apoio sólido para professores e futuros docentes que desejam inovar em suas práticas. Ao modelarmos o mundo através de grafos, mostramos aos estudantes que a Matemática é, acima de tudo, a linguagem das conexões.
 
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
@@ -938,22 +1276,338 @@ baseado nas diretrizes apontadas no seu rascunho.]}
 \begin{apendicesenv}
 \partapendices
 
-\chapter{Subtítulo do apêndice}
-Apêndices têm o objetivo de melhorar a compreensão textual, ou seja, completar
-ideias desenvolvidas no decorrer do trabalho.
+% ==========================================
+% APÊNDICE A
+% ==========================================
+\chapter{Proposta I --- A Vila dos Grafos: construindo e analisando um grafo}
+\label{apendice:vila}
+
+\textbf{Orientações para o professor:}
+
+\textbf{Objetivo da atividade:}
+
+Representar uma situação do cotidiano por meio de um grafo, identificar vértices e arestas, calcular graus e verificar experimentalmente o Lema do Aperto de Mão.
+
+\textbf{Conteúdos:}
+
+\begin{itemize}[noitemsep]
+  \item Construção de grafos (vértices e arestas);
+  \item Grau de um vértice;
+  \item Lema do Aperto de Mão (relação entre os graus e as arestas).
+\end{itemize}
+
+\textbf{Recursos necessários:}
+
+Lápis, papel, borracha, quadro e marcador/giz.
+
+\textbf{Tempo sugerido:}
+
+2 aulas de 50 minutos.
+
+\textbf{Desenvolvimento:}
+
+Inicie a aula com uma breve conversa sobre o planejamento de mapas de trânsito ou rotas de transportes públicos. Em seguida, distribua a ficha de atividade e sugira que os alunos trabalhem em duplas. O seu papel deverá ser de mediador: circule pela sala auxiliando na interpretação, sem dar respostas prontas. Caso algum grupo trave na representação visual, desenhe em um papel de rascunho mostrando que a forma ou tamanho das linhas não tem importância, desde que as conexões entre os locais estejam corretas. No momento de encerrar a atividade, utilize o quadro para debater a última questão: desenhe uma rua simples e mostre de forma visual que ela possui sempre duas ``pontas'', provando de forma dedutiva a razão pela qual a soma dos graus equivale ao dobro do número de arestas.
+
+\textbf{Expectativas em relação às respostas da ficha do aluno:}
+
+Na questão 1, espera-se que o aluno construa corretamente o mapa, representando os 5 locais como pontos (vértices) e as 7 ruas como linhas (arestas) conectando Prefeitura à Escola e Praça; Escola à Padaria e Praça; Padaria à Praça e Hospital; e Praça ao Hospital. Na questão 2, espera-se que liste os 5 vértices e as 7 arestas correspondentes. Na questão 3, espera-se que calcule o grau de cada vértice corretamente, obtendo: A=2, B=3, C=3, D=4 e E=2. Na questão 4, espera-se que realize a soma dos graus (14) e perceba que este valor é exatamente o dobro do número de arestas (7), justificando que cada rua se conecta a dois locais, o que confirma empiricamente a relação matemática.
+
+\textbf{Avaliação:}
+
+Observe a participação da turma e avalie, sobretudo, a compreensão na transição do texto para a representação gráfica, bem como a capacidade de argumentação matemática ao relacionar os graus com o número total de arestas.
+
+\newpage
+\begin{center}
+\textbf{Ficha de atividade para o aluno:}
+\end{center}
+
+\textbf{Leia o problema:}
+
+Você é o engenheiro de trânsito responsável por mapear o centro de um pequeno bairro chamado ``Vila dos Grafos''. Neste bairro, existem 5 pontos de grande importância: A (Prefeitura), B (Escola), C (Padaria), D (Praça Central) e E (Hospital). Para conectar esses locais, existem 7 ruas de mão dupla:
+
+\begin{enumerate}[noitemsep]
+  \item Prefeitura (A) $\leftrightarrow$ Escola (B)
+  \item Prefeitura (A) $\leftrightarrow$ Praça Central (D)
+  \item Escola (B) $\leftrightarrow$ Padaria (C)
+  \item Escola (B) $\leftrightarrow$ Praça Central (D)
+  \item Padaria (C) $\leftrightarrow$ Praça Central (D)
+  \item Padaria (C) $\leftrightarrow$ Hospital (E)
+  \item Praça Central (D) $\leftrightarrow$ Hospital (E)
+\end{enumerate}
+
+\vspace{0.5cm}
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        node distance=2.5cm and 3.5cm,
+        vertex/.style={circle, draw=blue!70!black, fill=blue!10, very thick, minimum size=1.5cm, align=center, font=\small\bfseries},
+        centervertex/.style={circle, draw=orange!80!black, fill=orange!20, very thick, minimum size=1.5cm, align=center, font=\small\bfseries},
+        edge/.style={draw, very thick, black!70}
+    ]
+        \node[centervertex] (D) {D \\ Praça};
+        \node[vertex] (A) [above left=of D] {A \\ Pref.};
+        \node[vertex] (B) [above right=of D] {B \\ Escola};
+        \node[vertex] (C) [below right=of D] {C \\ Padaria};
+        \node[vertex] (E) [below left=of D] {E \\ Hosp.};
+
+        \draw[edge] (A) -- (B) node[midway, above, font=\footnotesize, text=black!60] {Rua 1};
+        \draw[edge] (A) -- (D) node[midway, sloped, above, font=\footnotesize, text=black!60] {Rua 2};
+        \draw[edge] (B) -- (C) node[midway, right, font=\footnotesize, text=black!60] {Rua 3};
+        \draw[edge] (B) -- (D) node[midway, sloped, above, font=\footnotesize, text=black!60] {Rua 4};
+        \draw[edge] (C) -- (D) node[midway, sloped, below, font=\footnotesize, text=black!60] {Rua 5};
+        \draw[edge] (C) -- (E) node[midway, below, font=\footnotesize, text=black!60] {Rua 6};
+        \draw[edge] (D) -- (E) node[midway, sloped, below, font=\footnotesize, text=black!60] {Rua 7};
+    \end{tikzpicture}
+    \caption{Representação estrutural do mapa da Vila dos Grafos (Proposta I).}
+    \label{fig:vila_grafos}
+\end{figure}
+
+\textbf{1.} Desenhe o mapa do bairro representando os locais como pontos (vértices) e as ruas como linhas (arestas).
+
+\vspace{4cm}
+
+\textbf{2.} Liste o conjunto de vértices e o conjunto de arestas. Quantos vértices e quantas arestas o grafo possui?
+
+\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}
+
+\textbf{3.} Calcule o grau de cada vértice (ou seja, quantas ruas se conectam a cada local).
+
+\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}
+
+\textbf{4.} Some todos os graus obtidos na questão 3 e compare com o número total de arestas. O que você conclui? Explique a relação matemática.
+
+\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}
+
+
+% ==========================================
+% APÊNDICE B
+% ==========================================
+\chapter{Proposta II --- Redes Sociais e Conectividade}
+\label{apendice:redes}
+
+\textbf{Orientações para o professor:}
+
+\textbf{Objetivo da atividade:}
+
+Explorar a distinção estrutural entre grafos dirigidos e não dirigidos a partir da dinâmica das redes sociais digitais, um contexto amplamente familiar aos jovens.
+
+\textbf{Conteúdos:}
+
+\begin{itemize}[noitemsep]
+  \item Grafos não dirigidos (relações simétricas);
+  \item Dígrafos ou grafos dirigidos (relações assimétricas);
+  \item Grau de entrada e grau de saída.
+\end{itemize}
+
+\textbf{Recursos necessários:}
+
+Lápis, caderno e quadro.
+
+\textbf{Tempo sugerido:}
+
+1 aula de 50 minutos.
+
+\textbf{Desenvolvimento:}
+
+Aproveite o envolvimento natural dos jovens com a internet. Pode abrir a aula com a seguinte provocação: ``Se vocês seguirem um cantor famoso na rede social, ele automaticamente segue vocês de volta?''. A partir dessa reflexão, demonstre como algumas ligações matemáticas requerem setas de sentido para fazerem lógica e outras não. Durante a correção da última questão, fomente um debate em plenário comparando a dinâmica mútua da adição de contatos em uma plataforma de mensagens (como o WhatsApp) face à subscrição unidirecional de perfis em outra plataforma (como o Twitter/X).
+
+\textbf{Expectativas em relação às respostas da ficha do aluno:}
+
+Na questão 1, espera-se que o aluno construa um grafo não dirigido (sem setas) para representar as amizades e calcule o grau de cada pessoa (Ana=2, Bruno=3, Carla=2, Diego=3, Eduarda=2). Na questão 2, espera-se que o aluno desenhe um dígrafo com setas apontando do seguidor para o seguido, identificando corretamente o grau de entrada e saída de cada vértice. Na questão 3, espera-se que o aluno justifique a escolha do grafo não dirigido para o aplicativo de mensagens, já que a adição mútua implica uma relação obrigatoriamente simétrica, descartando o uso de direções individuais.
+
+\textbf{Avaliação:}
+
+Observe se a turma conseguiu aplicar o conceito teórico das direções nas arestas e avalie a clareza com que conseguem relacionar os modelos matemáticos com as interações digitais do dia a dia.
+
+\newpage
+\begin{center}
+\textbf{Ficha de atividade para o aluno:}
+\end{center}
+
+\textbf{Leia o problema:}
+
+Considere um grupo de cinco pessoas: Ana, Bruno, Carla, Diego e Eduarda. Em uma rede de amizade mútua (como o Facebook), a relação é simétrica: se Ana é amiga de Bruno, então Bruno é amigo de Ana. Em uma rede de seguidores (como o Twitter/X), a relação é assimétrica: Ana pode seguir Bruno sem que Bruno a siga de volta.
+
+As relações de \emph{amizade} existentes são:
+Ana--Bruno, Ana--Carla, Bruno--Diego, Carla--Diego, Diego--Eduarda e Bruno--Eduarda.
+
+As relações de \emph{seguimento} (de $\to$ para) são:
+Ana $\to$ Bruno, Bruno $\to$ Diego, Carla $\to$ Ana, Carla $\to$ Diego, Diego $\to$ Eduarda e Eduarda $\to$ Bruno.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        vertex/.style={circle, draw=black!80, fill=blue!15, very thick, minimum size=1.4cm, font=\small\bfseries},
+        edge/.style={draw, very thick, black!70}
+    ]
+        \node[vertex] (Ana) at (90:2.5cm) {Ana};
+        \node[vertex] (Bruno) at (18:2.5cm) {Bruno};
+        \node[vertex] (Carla) at (162:2.5cm) {Carla};
+        \node[vertex] (Eduarda) at (-54:2.5cm) {Eduarda};
+        \node[vertex] (Diego) at (-126:2.5cm) {Diego};
+
+        \draw[edge] (Ana) -- (Bruno);
+        \draw[edge] (Ana) -- (Carla);
+        \draw[edge] (Bruno) -- (Diego);
+        \draw[edge] (Carla) -- (Diego);
+        \draw[edge] (Diego) -- (Eduarda);
+        \draw[edge] (Bruno) -- (Eduarda);
+    \end{tikzpicture}
+    \caption{Gabarito da Questão 1: Rede de amizades representada por um grafo não dirigido.}
+    \label{fig:rede_amizades}
+\end{figure}
+\vspace{0.5cm}
+
+\textbf{1.} Represente a rede de amizades como um grafo \textbf{não dirigido} e calcule o grau de cada pessoa.
+
+\vspace{5cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+\textbf{2.} Represente a rede de seguidores como um \textbf{dígrafo}. Para cada vértice, calcule o \emph{grau de entrada} (quantos o seguem) e o \emph{grau de saída} (quantos ele segue).
+
+\vspace{6cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+\textbf{3.} Qual das duas representações é mais adequada para modelar um aplicativo de mensagens em que dois usuários precisam se adicionar mutuamente para conversar? Justifique.
+
+\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}
+
+
+% ==========================================
+% APÊNDICE C
+% ==========================================
+\chapter{Proposta III --- O Problema do Caixeiro Viajante Simplificado}
+\label{apendice:caixeiro}
+
+\textbf{Orientações para o professor:}
+
+\textbf{Objetivo da atividade:}
+
+Introduzir intuitivamente o conceito de otimização em grafos ponderados, demonstrando o efeito da explosão combinatória na quantidade de rotas e fomentando as bases do pensamento computacional.
+
+\textbf{Conteúdos:}
+
+\begin{itemize}[noitemsep]
+  \item Grafo completo ($K_4$);
+  \item Arestas ponderadas (pesos e distâncias numéricas);
+  \item Otimização de rotas;
+  \item Análise combinatória básica (fatorial).
+\end{itemize}
+
+\textbf{Recursos necessários:}
+
+Lápis, papel e calculadora básica (opcional).
+
+\textbf{Tempo sugerido:}
+
+2 aulas de 50 minutos.
+
+\textbf{Desenvolvimento:}
+
+Comece a aula de forma apelativa mencionando serviços de entrega de encomendas ou motoristas de aplicativos de transporte: "Como é que o GPS sabe qual é o trajeto mais rápido e econômico?". Desafie os estudantes a listar no papel, por conta própria, todas as rotas possíveis, ajudando-os a perceberem a necessidade de organizar os dados de forma sistemática. Na última questão, no momento em que realizam o cálculo de 9 fatorial, capte o natural espanto dos alunos perante aquele número astronômico (362.880 rotas). Aproveite esse momento para sublinhar os limites da "força bruta" humana e a vital importância de construir algoritmos informáticos eficientes.
+
+\textbf{Expectativas em relação às respostas da ficha do aluno:}
+
+Na questão 1, espera-se que o aluno represente as cities como 4 vértices totalmente conectados entre si (grafo completo) e anote as distâncias sobre cada aresta. Na questão 2, espera-se que liste todas as 6 rotas (permutações das 3 cidades intermediárias) partindo e retornando de Alfa. Na questão 3, espera-se que calcule o custo total de cada percurso e identifique as rotas de 80 km como as mais curtas. Na questão 4, espera-se que o aluno indique que haveria $9!$ ($362.880$) rotas distintas, reconhecendo a explosão combinatória e a dificuldade de testar todas as opções em problemas reais maiores.
+
+\textbf{Avaliação:}
+
+Observe a organização metódica e a sistematicidade demonstradas pelos alunos na fase de listagem de rotas. Avalie ainda a clareza analítica no reconhecimento de que o mero acréscimo de cidades altera drasticamente o nível de complexidade do problema.
+
+\newpage
+\begin{center}
+\textbf{Ficha de atividade para o aluno:}
+\end{center}
+
+\textbf{Leia o problema:}
+
+Um entregador precisa visitar quatro cidades — Alfa, Beta, Gama e Delta — partindo e retornando obrigatoriamente à cidade Alfa. As distâncias (em km) entre cada par de cidades são fornecidas na tabela abaixo:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+& \textbf{Alfa} & \textbf{Beta} & \textbf{Gama} & \textbf{Delta} \\ \hline
+\textbf{Alfa}  & ---  & 10   & 15   & 20    \\ \hline
+\textbf{Beta}  & 10   & ---  & 35   & 25    \\ \hline
+\textbf{Gama}  & 15   & 35   & ---  & 30    \\ \hline
+\textbf{Delta} & 20   & 25   & 30   & ---   \\ \hline
+\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        vertex/.style={circle, draw=black!80, fill=green!15, very thick, minimum size=1.5cm, font=\small\bfseries},
+        edge/.style={draw, very thick, black!70},
+        weight/.style={fill=white, inner sep=2pt, font=\footnotesize\bfseries, text=blue!80!black}
+    ]
+
+        \node[vertex] (Alfa) at (0,4) {Alfa};
+        \node[vertex] (Beta) at (5,4) {Beta};
+        \node[vertex] (Gama) at (0,0) {Gama};
+        \node[vertex] (Delta) at (5,0) {Delta};
+
+        \draw[edge] (Alfa) -- node[weight] {10 km} (Beta);
+        \draw[edge] (Alfa) -- node[weight] {15 km} (Gama);
+        \draw[edge] (Beta) -- node[weight] {25 km} (Delta);
+        \draw[edge] (Gama) -- node[weight] {30 km} (Delta);
+
+        \draw[edge] (Alfa) -- node[weight, pos=0.25] {20 km} (Delta);
+        \draw[edge] (Beta) -- node[weight, pos=0.25] {35 km} (Gama);
+
+    \end{tikzpicture}
+    \caption{Gabarito da Questão 1: Grafo completo ponderado representando as distâncias entre as cidades Alfa, Beta, Gama e Delta.}
+    \label{fig:caixeiro_viajante}
+\end{figure}
+
+\textbf{1.} Represente as cidades e as distâncias como um grafo completo (todos conectados entre si) com os valores numéricos sobre as arestas.
+
+\vspace{4.5cm}
+
+\textbf{2.} Liste todas as rotas possíveis que partem de Alfa, visitam as demais cidades exatamente uma vez e retornam a Alfa. Quantas são no total?
+
+\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}
+
+\textbf{3.} Calcule o custo (distância total) de cada rota listada acima e identifique a rota de menor custo.
+
+\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}
+
+\textbf{4.} Se o número de cidades fosse 10 (1 partida fixa + 9 cidades a visitar), quantas rotas distintas existiriam? O que isso nos diz sobre a dificuldade do problema?
+
+\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}\vspace{0.3cm}
+\noindent\rule{\textwidth}{0.4pt}
 
 \end{apendicesenv}
-
-% ---
-% Anexos
-% ---
-\begin{anexosenv}
-\partanexos
-
-\chapter{Subtítulo do anexo}
-Anexos são elementos que dão suporte ao texto, mas que não foram elaborados pelo
-autor.
-
-\end{anexosenv}
 
 \end{document}
